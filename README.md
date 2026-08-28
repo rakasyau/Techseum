@@ -1,6 +1,9 @@
 # ◉ Techseum — Interactive Digital Technology Museum
 
+[![Live Demo](https://img.shields.io/badge/Live%20Platform-techseum.rakasyau.my.id-38BDF8?style=for-the-badge&logo=vercel&logoColor=white)](https://techseum.rakasyau.my.id)
+
 > **See it. Understand it. Explore it.**  
+> 🌐 **Live Website:** [https://techseum.rakasyau.my.id](https://techseum.rakasyau.my.id)  
 > *An interactive, visual-first digital technology museum designed to make computing architectures, RF waveforms, semiconductor physics, and everyday mobile technologies intuitive, accessible, and engaging.*
 
 ---
@@ -48,7 +51,9 @@ Techseum organizes its interactive collection across 5 primary domains:
 
 <div align="center">
   <p><strong>◉ Techseum</strong> — <em>Built for curious minds exploring the wonders of human technology.</em></p>
+  <p>🌐 <a href="https://techseum.rakasyau.my.id"><strong>techseum.rakasyau.my.id</strong></a></p>
 </div>
+
 
 
 

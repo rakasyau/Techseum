@@ -43,7 +43,7 @@ export function generateWeeklyExhibitNewsletterHtml(options: {
       <div class="badge">Eksibit Baru Minggu Ini</div>
       <h1>${options.featuredExhibitTitle}</h1>
       <p>${options.featuredExhibitDesc}</p>
-      <a href="https://techseum.io/explore/${options.exhibitSlug}" class="btn">
+      <a href="https://techseum.rakasyau.my.id/explore/${options.exhibitSlug}" class="btn">
         Mulai Simulasi Interaktif →
       </a>
     </div>
