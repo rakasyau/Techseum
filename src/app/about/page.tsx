@@ -63,11 +63,11 @@ export default function AboutPage() {
 
   const stats = [
     {
-      value: "50+",
-      label: language === "id" ? "Eksibit Interaktif" : "Interactive Exhibits",
+      value: "21+",
+      label: language === "id" ? "Topik Eksibit" : "Interactive Exhibits",
     },
     {
-      value: "120+",
+      value: "40+",
       label: language === "id" ? "Simulasi 2D & 3D" : "2D & 3D Simulations",
     },
     {
@@ -75,8 +75,8 @@ export default function AboutPage() {
       label: language === "id" ? "Tingkat Kedalaman" : "Depth Levels",
     },
     {
-      value: "10K+",
-      label: language === "id" ? "Penjelajah Aktif" : "Active Explorers",
+      value: "100%",
+      label: language === "id" ? "Interaktif & Akses Bebas" : "Interactive & Open Access",
     },
   ];
 

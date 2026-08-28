@@ -22,7 +22,7 @@ export interface Translations {
     watchDemo: string;
     topicsCount: string;
     simsCount: string;
-    learnersCount: string;
+    interactiveCount: string;
   };
   featured: {
     title: string;
@@ -154,9 +154,9 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       subtitle: "Lihat. Pahami. Jelajahi — dari arsitektur CPU hingga gelombang Wi-Fi dan Jaringan Syaraf Tiruan AI.",
       startExploring: "Mulai Eksplorasi",
       watchDemo: "Lihat Demo Interaktif",
-      topicsCount: "50+ Topik Eksibit",
-      simsCount: "120+ Simulasi Visual",
-      learnersCount: "10K+ Penjelajah Aktif",
+      topicsCount: "Topik Eksibit",
+      simsCount: "Simulasi 2D & 3D",
+      interactiveCount: "Interaktif & Akses Bebas",
     },
     featured: {
       title: "Eksibit Pilihan",
@@ -181,7 +181,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     explore: {
       kicker: "Katalog & Direktori Eksibit",
       title: "Jelajahi Eksibit Teknologi",
-      subtitle: "Telusuri 11+ eksibit teknologi interaktif. Selami mikroarsitektur, gelombang RF, dan sirkuit silikon sesuai kecepatan belajarmu.",
+      subtitle: "Telusuri 21+ eksibit teknologi interaktif. Selami mikroarsitektur, gelombang RF, dan sirkuit silikon sesuai kecepatan belajarmu.",
       searchPlaceholder: "Cari topik eksibit (misal: CPU, Wi-Fi, Kamera, GPU, Baterai)...",
       showingCount: "Menampilkan",
       mastered: "Dikuasai",
@@ -286,9 +286,9 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       subtitle: "See it. Understand it. Explore it — from CPU microarchitectures to Wi-Fi waves and Neural Networks.",
       startExploring: "Start Exploring",
       watchDemo: "Watch Interactive Demo",
-      topicsCount: "50+ Topic Exhibits",
-      simsCount: "120+ Visual Simulations",
-      learnersCount: "10K+ Active Explorers",
+      topicsCount: "Topic Exhibits",
+      simsCount: "2D & 3D Simulations",
+      interactiveCount: "Interactive & Open Access",
     },
     featured: {
       title: "Featured Exhibits",
@@ -313,7 +313,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     explore: {
       kicker: "Museum Catalog & Directory",
       title: "Explore Technology Exhibits",
-      subtitle: "Walk through 11+ interactive technology exhibits. Dive into microarchitectures, RF waveforms, and silicon circuits at your pace.",
+      subtitle: "Walk through 21+ interactive technology exhibits. Dive into microarchitectures, RF waveforms, and silicon circuits at your pace.",
       searchPlaceholder: "Search exhibits (e.g. CPU, Wi-Fi, Camera, GPU, Battery)...",
       showingCount: "Showing",
       mastered: "Mastered",

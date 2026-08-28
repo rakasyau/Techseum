@@ -22,9 +22,9 @@ export default function HeroSection() {
   const { t } = useLanguage();
 
   const stats = [
-    { value: "50+", label: t.hero.topicsCount },
-    { value: "120+", label: t.hero.simsCount },
-    { value: "10K+", label: t.hero.learnersCount },
+    { value: "21+", label: t.hero.topicsCount },
+    { value: "40+", label: t.hero.simsCount },
+    { value: "100%", label: t.hero.interactiveCount },
   ];
 
   return (
