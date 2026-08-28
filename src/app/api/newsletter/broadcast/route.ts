@@ -39,7 +39,7 @@ async function executeBroadcast(selectedTopicSlug?: string) {
 
     const res = await sendEmail({
       to: sub.email,
-      subject: `[Techseum Eksibit Baru] ${featuredTopic.title}`,
+      subject: `[Techseum Weekly Exhibit] ${featuredTopic.title}`,
       html,
     });
 
