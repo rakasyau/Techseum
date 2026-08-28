@@ -1,0 +1,228 @@
+.main {
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+  background-color: var(--color-bg);
+}
+
+.heroSection {
+  padding: var(--space-12) 0 var(--space-8);
+  background-color: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.kicker {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-top: var(--space-2);
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+  max-width: 60ch;
+  margin-top: var(--space-3);
+  line-height: 1.6;
+}
+
+.controlsRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.timeframeTabs {
+  display: flex;
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  width: max-content;
+}
+
+.tfBtn {
+  padding: 0.45rem 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.tfActive {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.catPills {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.catPill {
+  padding: 0.4rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast);
+}
+
+.catPill:hover {
+  color: var(--color-text);
+}
+
+.catPillActive {
+  background-color: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+/* ── Table Section ─────────────────────────────────── */
+.tableSection {
+  padding: var(--space-10) 0 var(--space-24);
+}
+
+.rankTable {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 80px 2fr 1.5fr 1fr 1fr;
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-bg-alt);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tableBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 80px 2fr 1.5fr 1fr 1fr;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-light);
+  align-items: center;
+  transition: background-color var(--duration-fast);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow:hover {
+  background-color: var(--color-bg-alt);
+}
+
+.rankCol {
+  display: flex;
+  align-items: center;
+}
+
+.rankBadge {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.userCol {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), #7C3AED);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.nameBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.userBadges {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.specialtyBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+}
+
+.streakCol {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.xpCol {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 50px 1.5fr 1fr;
+  }
+  .specialtyCol,
+  .streakCol,
+  .thSpecialty,
+  .thStreak {
+    display: none;
+  }
+}

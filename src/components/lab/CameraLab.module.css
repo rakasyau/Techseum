@@ -1,0 +1,229 @@
+.labCard {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.labHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.labTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.labTitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-top: 2px;
+}
+
+.evBadge {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background-color: var(--color-bg-alt);
+  padding: 0.4rem 0.875rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+}
+
+.labGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.controlsCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sliderGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.paramName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.paramValue {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.slider {
+  width: 100%;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--color-text-light);
+}
+
+.statusBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-alt);
+  border: 1px solid;
+  border-radius: var(--radius-md);
+  margin-top: var(--space-2);
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.statusText {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* ── Viewfinder Preview ────────────────────────────── */
+.previewCol {
+  display: flex;
+  justify-content: center;
+}
+
+.cameraViewfinder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-text);
+  border: 2px solid var(--color-border);
+  transition: filter var(--duration-fast);
+}
+
+.backgroundLayer {
+  position: absolute;
+  inset: -10px;
+  background: linear-gradient(180deg, var(--color-accent-blue) 0%, var(--color-accent-amber) 60%, var(--color-success) 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+  transition: filter var(--duration-fast);
+}
+
+.bgSun {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-accent-amber);
+  position: absolute;
+  top: 25px;
+  right: 40px;
+}
+
+.bgMountain {
+  width: 120px;
+  height: 90px;
+  background-color: var(--color-text-muted);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.bgTree {
+  width: 40px;
+  height: 80px;
+  background-color: var(--color-success);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.subjectLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.subjectLens {
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+}
+
+.viewfinderOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border: 12px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-3);
+  font-family: var(--font-display);
+  color: var(--color-bg);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-sm);
+}
+
+.vfMetaTop {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+.vfMetaBottom {
+  font-size: 0.75rem;
+  font-weight: 700;
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .labGrid {
+    grid-template-columns: 1fr;
+  }
+}

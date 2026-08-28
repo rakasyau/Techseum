@@ -1,0 +1,219 @@
+.labCard {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-card);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.labHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.labTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.labTitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-top: 2px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.protoSwitch {
+  display: flex;
+  background-color: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+}
+
+.protoBtn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.protoActive {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* ── Visual Topology ───────────────────────────────── */
+.visualTopology {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.nodesRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6) var(--space-4);
+  background-color: var(--color-bg-alt);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  position: relative;
+  overflow-x: auto;
+}
+
+.nodeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+  flex: 1;
+}
+
+.nodeCircle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+  transition: all var(--duration-normal) var(--ease-out);
+  z-index: 2;
+}
+
+.nodeActive {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  transform: scale(1.1);
+  box-shadow: 0 0 16px rgba(79, 70, 229, 0.3);
+}
+
+.nodeName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.nodeConnector {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-border);
+  z-index: 1;
+  transition: background-color var(--duration-normal);
+}
+
+.connectorActive {
+  background-color: var(--color-accent);
+}
+
+/* ── Hop Log Table ─────────────────────────────────── */
+.hopLog {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.hopLogHeader {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-bg-alt);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hopList {
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyLog {
+  padding: var(--space-6);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.hopRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-border-light);
+  align-items: center;
+  font-size: 0.875rem;
+  animation: fadeInRow 0.2s var(--ease-out);
+}
+
+.hopNode {
+  display: flex;
+  flex-direction: column;
+}
+
+.hopIp {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+}
+
+.hopLatency {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.hopStatus {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-success);
+  background-color: rgba(22, 163, 74, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-pill);
+  width: max-content;
+}
+
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

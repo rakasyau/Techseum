@@ -1,0 +1,80 @@
+.strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-alt);
+  overflow: hidden;
+}
+
+.label {
+  flex-shrink: 0;
+  padding-left: var(--space-8);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.marqueeWrap {
+  overflow: hidden;
+  flex: 1;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 5%,
+    black 95%,
+    transparent
+  );
+}
+
+.marquee {
+  display: flex;
+  gap: var(--space-10);
+  animation: marqueeScroll 30s linear infinite;
+  width: max-content;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity var(--duration-fast);
+}
+
+.item:hover {
+  opacity: 0.8;
+}
+
+.icon {
+  font-size: 1.125rem;
+  filter: grayscale(1);
+}
+
+.name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
