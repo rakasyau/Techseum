@@ -315,12 +315,19 @@
 /* ── Responsive Mobile & Tablet Adaptations ─────────── */
 @media (max-width: 768px) {
   .canvasWrapper {
-    height: 380px;
-    min-height: 380px;
+    height: 360px;
+    min-height: 360px;
   }
 
   .explodedGuide {
     padding: var(--space-3) var(--space-4);
+  }
+
+  .guideHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    margin-bottom: var(--space-2);
   }
 
   .componentGrid {
@@ -340,33 +347,39 @@
   .componentCard {
     flex: 0 0 240px;
     scroll-snap-align: start;
+    min-height: 48px;
   }
 
   .toolbar {
     padding: var(--space-3) var(--space-4);
     flex-direction: column;
     align-items: stretch;
+    gap: var(--space-3);
   }
 
   .controlsLeft {
     width: 100%;
-    justify-content: stretch;
+    display: flex;
+    gap: var(--space-2);
   }
 
   .controlsLeft .toolBtn {
     flex: 1;
+    min-height: 44px;
   }
 
   .hint {
     justify-content: center;
     text-align: center;
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
 }
 
 @media (max-width: 480px) {
   .canvasWrapper {
-    height: 310px;
-    min-height: 310px;
+    height: 320px;
+    min-height: 320px;
   }
 
   .pinBadge {
@@ -375,8 +388,19 @@
     font-size: 0.8125rem;
   }
 
+  .controlsLeft {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .controlsLeft .toolBtn {
+    width: 100%;
+    font-size: 0.8125rem;
+    min-height: 44px;
+  }
+
   .componentCard {
-    flex: 0 0 210px;
+    flex: 0 0 220px;
     padding: 0.6rem 0.75rem;
   }
 }

@@ -2086,7 +2086,7 @@ export default function Simulation2DEngine({
             <span className={styles.stepActiveBadge}>
               {language === "id" ? `Langkah ${currentStep + 1}` : `Step ${currentStep + 1}`}
             </span>
-            <span>{currentStepData.title}</span>
+            <span>{currentStepData.title.replace(/^\d+\.\s*/, "")}</span>
           </h4>
         </div>
         <p className={styles.stepBannerDesc}>{currentStepData.shortDesc}</p>

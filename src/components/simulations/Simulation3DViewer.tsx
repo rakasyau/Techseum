@@ -512,7 +512,7 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
     sceneRef.current = scene;
 
     const width = mount.clientWidth || 800;
-    const height = Math.max(mount.clientHeight || 480, 480);
+    const height = mount.clientHeight || (typeof window !== "undefined" && window.innerWidth <= 480 ? 320 : window.innerWidth <= 768 ? 380 : 480);
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.set(0, 0, 8);
@@ -1174,33 +1174,100 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
 
     animElementsRef.current = animList;
 
-    // ── Mouse Drag Orbit Controls ───────────────────────
+    // ── Mouse & Touch 360° Drag Orbit Controls ──────────
     let isDragging = false;
-    let prevMousePos = { x: 0, y: 0 };
+    let prevPos = { x: 0, y: 0 };
+    let initialPinchDistance = 0;
+    let initialCameraDistance = optimalDistance;
 
-    const handleMouseDown = (e: MouseEvent) => {
-      isDragging = true;
-      prevMousePos = { x: e.clientX, y: e.clientY };
+    const getTouchDistance = (e: TouchEvent) => {
+      if (e.touches.length < 2) return 0;
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      return Math.sqrt(dx * dx + dy * dy);
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
+    // Pointer events (handles desktop mouse drag seamlessly)
+    const handlePointerDown = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return; // Touch events handled with dedicated touch listeners
+      isDragging = true;
+      prevPos = { x: e.clientX, y: e.clientY };
+      if (mount.setPointerCapture) {
+        try {
+          mount.setPointerCapture(e.pointerId);
+        } catch {}
+      }
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       if (!isDragging || !rootGroup) return;
-      const deltaX = e.clientX - prevMousePos.x;
-      const deltaY = e.clientY - prevMousePos.y;
+      const deltaX = e.clientX - prevPos.x;
+      const deltaY = e.clientY - prevPos.y;
 
       rootGroup.rotation.y += deltaX * 0.01;
       rootGroup.rotation.x += deltaY * 0.01;
 
-      prevMousePos = { x: e.clientX, y: e.clientY };
+      prevPos = { x: e.clientX, y: e.clientY };
     };
 
-    const handleMouseUp = () => {
+    const handlePointerUp = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       isDragging = false;
+      if (mount.releasePointerCapture) {
+        try {
+          mount.releasePointerCapture(e.pointerId);
+        } catch {}
+      }
     };
 
-    mount.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
+    // Dedicated Mobile Touch Listeners (single-finger rotate + two-finger pinch-zoom)
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        prevPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      } else if (e.touches.length === 2) {
+        isDragging = false;
+        initialPinchDistance = getTouchDistance(e);
+        initialCameraDistance = camera.position.length();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 1 && isDragging && rootGroup) {
+        if (e.cancelable) e.preventDefault();
+        const deltaX = e.touches[0].clientX - prevPos.x;
+        const deltaY = e.touches[0].clientY - prevPos.y;
+
+        rootGroup.rotation.y += deltaX * 0.012;
+        rootGroup.rotation.x += deltaY * 0.012;
+
+        prevPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      } else if (e.touches.length === 2 && initialPinchDistance > 0) {
+        if (e.cancelable) e.preventDefault();
+        const currentDist = getTouchDistance(e);
+        if (currentDist > 0) {
+          const ratio = initialPinchDistance / currentDist;
+          const newDist = THREE.MathUtils.clamp(initialCameraDistance * ratio, 3.5, 20);
+          camera.position.setLength(newDist);
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      isDragging = false;
+      initialPinchDistance = 0;
+    };
+
+    mount.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+    window.addEventListener("pointercancel", handlePointerUp);
+
+    mount.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("touchcancel", handleTouchEnd);
 
     // ── Animation & 3D Pin Projection Loop ───────────────
     let reqId: number;
@@ -1223,7 +1290,7 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
       frameCount++;
       if (frameCount % 2 === 0 && componentMeshesRef.current.length > 0 && mountRef.current) {
         const w = mountRef.current.clientWidth || 800;
-        const h = mountRef.current.clientHeight || 480;
+        const h = mountRef.current.clientHeight || (typeof window !== "undefined" && window.innerWidth <= 480 ? 320 : window.innerWidth <= 768 ? 380 : 480);
 
         const calculatedPins: ScreenPin[] = [];
         componentMeshesRef.current.forEach((mesh, idx) => {
@@ -1263,7 +1330,7 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
     const handleResize = () => {
       if (!mount) return;
       const w = mount.clientWidth || 800;
-      const h = Math.max(mount.clientHeight || 480, 480);
+      const h = mount.clientHeight || (window.innerWidth <= 480 ? 320 : window.innerWidth <= 768 ? 380 : 480);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -1272,9 +1339,16 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
 
     return () => {
       cancelAnimationFrame(reqId);
-      mount.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      mount.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("pointercancel", handlePointerUp);
+
+      mount.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchcancel", handleTouchEnd);
+
       window.removeEventListener("resize", handleResize);
       if (mount && renderer.domElement && mount.contains(renderer.domElement)) {
         mount.removeChild(renderer.domElement);
@@ -1322,12 +1396,17 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
   };
 
   const toggleXRay = () => {
-    setIsXRay(!isXRay);
+    const nextXRay = !isXRay;
+    setIsXRay(nextXRay);
     if (!explodedGroupRef.current) return;
     explodedGroupRef.current.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        if (child.material instanceof THREE.MeshStandardMaterial) {
-          child.material.wireframe = !isXRay;
+      if (child instanceof THREE.Mesh && child.material) {
+        if (Array.isArray(child.material)) {
+          child.material.forEach((mat) => {
+            if ("wireframe" in mat) mat.wireframe = nextXRay;
+          });
+        } else if ("wireframe" in child.material) {
+          child.material.wireframe = nextXRay;
         }
       }
     });
@@ -1500,8 +1579,8 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
           </svg>
           <span>
             {language === "id"
-              ? "Geser mouse untuk memutar 360° • Arahkan kursor ke nomor komponen untuk menyorot"
-              : "Drag mouse to rotate 360° • Hover component badges to highlight"}
+              ? "Sentuh atau geser untuk memutar 360° • Ketuk/sorot nomor komponen untuk melihat detail"
+              : "Touch or drag to rotate 360° • Tap/hover component numbers to view details"}
           </span>
         </div>
       </div>
