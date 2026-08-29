@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { TOPICS } from "@/data/topics";
+import { TOPICS, getLocalizedTopic } from "@/data/topics";
 import { useUserProgress } from "@/context/UserProgressContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { FlameIcon, TrophyIcon, MuseumHallIcon } from "@/components/icons/CustomIcons";
@@ -11,7 +11,9 @@ import styles from "./Challenges.module.css";
 
 export default function ChallengesPage() {
   const { isAuthenticated, isLoading, xp, level, streak, badges } = useUserProgress();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+
+  const localizedTopics = TOPICS.map((top) => getLocalizedTopic(top, language));
 
   const xpForNextLevel = Math.pow(level, 2) * 100;
   const currentLevelBaseXP = Math.pow(level - 1, 2) * 100;
@@ -118,7 +120,7 @@ export default function ChallengesPage() {
           <div className="container">
             <h2 className={styles.secTitle}>{t.challenges.exhibitsTitle}</h2>
             <div className={styles.challengesGrid}>
-              {TOPICS.map((topic) => (
+              {localizedTopics.map((topic) => (
                 <article key={topic.id} className={styles.challengeItem}>
                   <div className={styles.challengeMeta}>
                     <span className={styles.catName} style={{ color: topic.accentColor }}>

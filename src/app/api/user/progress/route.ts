@@ -25,8 +25,8 @@ export async function POST(req: Request) {
 
     if (completedTopicId && !user.completedTopics.includes(completedTopicId)) {
       user.completedTopics.push(completedTopicId);
-      user.xp += 50; // topic completion reward
-      user.level = Math.floor(Math.sqrt(user.xp / 100)) + 1;
+      // XP reward is sent separately via xpDelta from the frontend context
+      // to avoid double-counting (context already adds +50 XP optimistically)
     }
 
     if (bookmarkTopicId) {

@@ -21,7 +21,7 @@ export default function ExplorePage() {
   const { toggleBookmark, bookmarks, completedTopics } = useUserProgress();
   const { language, t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedDifficulty, setSelectedDifficulty] = useState("All Levels");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const categories = [
@@ -34,11 +34,11 @@ export default function ExplorePage() {
   ];
 
   const difficulties = [
-    t.levels.all,
-    t.levels.simple,
-    t.levels.beginner,
-    t.levels.technical,
-    t.levels.deepDive,
+    { slug: "all", label: t.levels.all },
+    { slug: "simple", label: t.levels.simple },
+    { slug: "beginner", label: t.levels.beginner },
+    { slug: "technical", label: t.levels.technical },
+    { slug: "deep dive", label: t.levels.deepDive },
   ];
 
   const localizedList = useMemo(() => {
@@ -50,16 +50,15 @@ export default function ExplorePage() {
       const matchCat =
         selectedCategory === "all" || topic.categorySlug === selectedCategory;
       const matchDiff =
-        selectedDifficulty === t.levels.all ||
-        selectedDifficulty === "All Levels" ||
-        topic.difficulty.toLowerCase() === selectedDifficulty.toLowerCase();
+        selectedDifficulty === "all" ||
+        topic.difficulty.toLowerCase() === selectedDifficulty;
       const matchSearch =
         topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         topic.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
         topic.category.toLowerCase().includes(searchQuery.toLowerCase());
       return matchCat && matchDiff && matchSearch;
     });
-  }, [localizedList, selectedCategory, selectedDifficulty, searchQuery, t.levels.all]);
+  }, [localizedList, selectedCategory, selectedDifficulty, searchQuery]);
 
   return (
     <>
@@ -135,8 +134,8 @@ export default function ExplorePage() {
                   id="diff-filter-select"
                 >
                   {difficulties.map((d) => (
-                    <option key={d} value={d}>
-                      {d}
+                    <option key={d.slug} value={d.slug}>
+                      {d.label}
                     </option>
                   ))}
                 </select>

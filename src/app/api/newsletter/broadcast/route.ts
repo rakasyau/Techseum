@@ -81,7 +81,7 @@ export async function POST(req: Request) {
 
     // Admin token check
     const adminKey = process.env.ADMIN_BROADCAST_SECRET || "techseum_admin_broadcast_2026";
-    if (secretKey && secretKey !== adminKey) {
+    if (!secretKey || secretKey !== adminKey) {
       return NextResponse.json({ error: "Unauthorized broadcast request" }, { status: 401 });
     }
 

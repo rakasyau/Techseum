@@ -158,7 +158,7 @@ export default function CameraLab() {
               <div className={styles.crosshair} />
               <span className={styles.vfMetaTop}>[AF-C FOCUS LOCKED]</span>
               <span className={styles.vfMetaBottom}>
-                f/{aperture} • 1/{Math.round(1 / shutterSpeed)}s • ISO {iso}
+                f/{aperture} • {shutterSpeed < 1 ? `1/${Math.round(1 / shutterSpeed)}s` : `${shutterSpeed}s`} • ISO {iso}
               </span>
             </div>
           </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import confetti from "canvas-confetti";
 import { useUserProgress } from "@/context/UserProgressContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { type TopicChallenge } from "@/data/topics";
 import styles from "./MiniChallenge.module.css";
 
@@ -13,6 +14,7 @@ interface MiniChallengeProps {
 
 export default function MiniChallenge({ challenge, topicTitle }: MiniChallengeProps) {
   const { addXP } = useUserProgress();
+  const { t } = useLanguage();
   const [selectedSingleIndex, setSelectedSingleIndex] = useState<number | null>(null);
   const [orderedIndices, setOrderedIndices] = useState<number[]>(
     challenge.type === "ordering" ? challenge.options.map((_, i) => i) : []
@@ -68,7 +70,7 @@ export default function MiniChallenge({ challenge, topicTitle }: MiniChallengePr
     <div className={styles.challengeBox} id="topic-mini-challenge">
       <div className={styles.header}>
         <div className={styles.badgeRow}>
-          <span className={styles.challengeBadge}>Interactive Challenge</span>
+          <span className={styles.challengeBadge}>{t.topicDetail.challengeBadge}</span>
           <span className={styles.xpReward}>+{challenge.xpReward} XP</span>
         </div>
         <h3 className={styles.question}>{challenge.question}</h3>
@@ -150,7 +152,7 @@ export default function MiniChallenge({ challenge, topicTitle }: MiniChallengePr
               disabled={challenge.type === "multiple-choice" && selectedSingleIndex === null}
               id="submit-challenge-btn"
             >
-              Verify Answer
+              {t.topicDetail.verifyAnswer}
             </button>
           ) : (
             <div className={styles.resultFeedback}>
@@ -159,12 +161,12 @@ export default function MiniChallenge({ challenge, topicTitle }: MiniChallengePr
                   {isCorrect ? (
                     <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "var(--color-success)" }}>
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
-                      Correct Architecture!
+                      {t.topicDetail.correctAnswer}
                     </span>
                   ) : (
                     <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "var(--color-danger)" }}>
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
-                      Sequence Incomplete
+                      {t.topicDetail.wrongAnswer}
                     </span>
                   )}
                 </div>
@@ -175,7 +177,7 @@ export default function MiniChallenge({ challenge, topicTitle }: MiniChallengePr
                     onClick={handleRetry}
                     id="retry-challenge-btn"
                   >
-                    Try Again
+                    {t.topicDetail.tryAgain}
                   </button>
                 )}
               </div>

@@ -126,7 +126,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
           xp: newXp,
           level: newLevel,
         });
-        syncProgressToCloud({ completedTopicId: topicId });
+        syncProgressToCloud({ completedTopicId: topicId, xpDelta: 50 });
       }
     } else {
       setGuestState((prev) => {

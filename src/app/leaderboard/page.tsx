@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
+import { useUserProgress } from "@/context/UserProgressContext";
 import {
   MedalGoldIcon,
   MedalSilverIcon,
@@ -25,6 +26,7 @@ interface LeaderboardUser {
 
 export default function LeaderboardPage() {
   const { t } = useLanguage();
+  const { user: currentUser } = useUserProgress();
   const [timeframe, setTimeframe] = useState<"weekly" | "all-time">("weekly");
   const [selectedCat, setSelectedCat] = useState("All");
   const [leaders, setLeaders] = useState<LeaderboardUser[]>([]);
@@ -140,7 +142,7 @@ export default function LeaderboardPage() {
                         <div className={styles.nameBlock}>
                           <span className={styles.userName}>
                             {user.name}
-                            {user.isRealUser && (
+                            {currentUser && currentUser.name === user.name && (
                               <span style={{ marginLeft: "6px", fontSize: "0.6875rem", color: "var(--color-accent)", fontWeight: 700 }}>
                                 (You)
                               </span>

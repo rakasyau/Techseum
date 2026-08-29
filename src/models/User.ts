@@ -44,15 +44,17 @@ const UserSchema = new Schema<IUser>(
     bookmarks: { type: [String], default: [] },
     badges: {
       type: [BadgeSchema],
-      default: [
-        {
-          id: "first-explorer",
-          name: "First Explorer",
-          description: "Created your Techseum museum pass",
-          icon: "beacon",
-          unlockedAt: new Date().toISOString().split("T")[0],
-        },
-      ],
+      default: function() {
+        return [
+          {
+            id: "first-explorer",
+            name: "First Explorer",
+            description: "Created your Techseum museum pass",
+            icon: "beacon",
+            unlockedAt: new Date().toISOString().split("T")[0],
+          },
+        ];
+      },
     },
   },
   { timestamps: true }

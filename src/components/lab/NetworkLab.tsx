@@ -11,7 +11,6 @@ interface PacketHop {
 }
 
 export default function NetworkLab() {
-  const [packetLossRate, setPacketLossRate] = useState(0); // 0 to 20%
   const [protocol, setProtocol] = useState<"HTTPS" | "HTTP/3 QUIC">("HTTP/3 QUIC");
   const [isSending, setIsSending] = useState(false);
   const [hops, setHops] = useState<PacketHop[]>([]);

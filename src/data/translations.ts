@@ -71,6 +71,9 @@ export interface Translations {
     keyTakeaways: string;
     verifyAnswer: string;
     tryAgain: string;
+    challengeBadge: string;
+    correctAnswer: string;
+    wrongAnswer: string;
     relatedTitle: string;
     exploreExhibit: string;
     mustLoginTitle: string;
@@ -205,6 +208,9 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       keyTakeaways: "Poin Kunci Utama",
       verifyAnswer: "Verifikasi Jawaban",
       tryAgain: "Coba Lagi",
+      challengeBadge: "Tantangan Interaktif",
+      correctAnswer: "Arsitektur Benar!",
+      wrongAnswer: "Urutan Belum Tepat",
       relatedTitle: "Eksibit Terkait Lainnya",
       exploreExhibit: "Jelajahi eksibit",
       mustLoginTitle: "Akses Eksibit Terkunci",
@@ -337,6 +343,9 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       keyTakeaways: "Key Takeaways",
       verifyAnswer: "Verify Answer",
       tryAgain: "Try Again",
+      challengeBadge: "Interactive Challenge",
+      correctAnswer: "Correct Architecture!",
+      wrongAnswer: "Sequence Incomplete",
       relatedTitle: "Related Technology Exhibits",
       exploreExhibit: "Explore exhibit",
       mustLoginTitle: "Exhibit Access Locked",
