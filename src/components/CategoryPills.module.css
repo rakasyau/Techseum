@@ -74,14 +74,20 @@
 }
 
 @media (max-width: 640px) {
+  .container {
+    padding: 0;
+  }
+
   .scroll {
     justify-content: flex-start;
     flex-wrap: nowrap;
-    padding: var(--space-2) var(--space-6);
+    padding: var(--space-2) var(--space-4);
+    -webkit-overflow-scrolling: touch;
   }
 
   .pill {
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
+    min-height: 40px;
   }
 }

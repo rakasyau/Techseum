@@ -226,3 +226,22 @@
     display: none;
   }
 }
+
+@media (max-width: 640px) {
+  .controlsRow {
+    gap: var(--space-3);
+  }
+  .timeframeTabs {
+    width: 100%;
+  }
+  .tfBtn {
+    flex: 1;
+    text-align: center;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+  .catPills {
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+}

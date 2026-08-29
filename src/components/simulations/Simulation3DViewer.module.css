@@ -109,7 +109,8 @@
   gap: 2px;
 }
 
-.pinContainer:hover .pinTooltip {
+.pinContainer:hover .pinTooltip,
+.pinTooltipActive {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(-2px);
@@ -263,13 +264,16 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  flex-wrap: wrap;
 }
 
 .toolBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target-min, 44px);
   gap: var(--space-2);
-  padding: 0.45rem 1rem;
+  padding: 0.5rem 1.125rem;
   font-family: var(--font-body);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -306,4 +310,73 @@
   font-size: 0.75rem;
   color: var(--color-text-muted);
   font-weight: 500;
+}
+
+/* ── Responsive Mobile & Tablet Adaptations ─────────── */
+@media (max-width: 768px) {
+  .canvasWrapper {
+    height: 380px;
+    min-height: 380px;
+  }
+
+  .explodedGuide {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .componentGrid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: var(--space-2);
+    gap: var(--space-3);
+  }
+
+  .componentGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .componentCard {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+  }
+
+  .toolbar {
+    padding: var(--space-3) var(--space-4);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controlsLeft {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .controlsLeft .toolBtn {
+    flex: 1;
+  }
+
+  .hint {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .canvasWrapper {
+    height: 310px;
+    min-height: 310px;
+  }
+
+  .pinBadge {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8125rem;
+  }
+
+  .componentCard {
+    flex: 0 0 210px;
+    padding: 0.6rem 0.75rem;
+  }
 }

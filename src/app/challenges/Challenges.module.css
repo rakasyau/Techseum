@@ -252,6 +252,18 @@
 }
 
 @media (max-width: 640px) {
+  .heroSection {
+    padding: var(--space-8) 0 var(--space-6);
+  }
+  .statsCard {
+    padding: var(--space-5) var(--space-4);
+  }
+  .badgeCard {
+    padding: var(--space-4);
+  }
+  .challengeItem {
+    padding: var(--space-5) var(--space-4);
+  }
   .badgesGrid {
     grid-template-columns: 1fr;
   }

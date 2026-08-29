@@ -1389,7 +1389,7 @@ export default function Simulation3DViewer({ topicId }: Simulation3DViewerProps)
                     {pin.index}
                   </div>
 
-                  <div className={styles.pinTooltip}>
+                  <div className={`${styles.pinTooltip} ${isHigh ? styles.pinTooltipActive : ""}`}>
                     <span className={styles.pinTooltipTitle}>
                       [{pin.index}] {language === "id" ? pin.info.name.id : pin.info.name.en}
                     </span>

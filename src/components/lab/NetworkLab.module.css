@@ -217,3 +217,41 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .labCard {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .nodesRow {
+    padding: var(--space-4) var(--space-2);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
+  }
+
+  .nodeWrapper {
+    min-width: 70px;
+  }
+
+  .nodeCircle {
+    width: 44px;
+    height: 44px;
+    font-size: 1.125rem;
+  }
+
+  .nodeConnector {
+    top: 22px;
+  }
+
+  .nodeName {
+    font-size: 0.75rem;
+  }
+
+  .hopLogHeader,
+  .hopRow {
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.8125rem;
+  }
+}

@@ -232,15 +232,42 @@
 }
 
 @media (max-width: 640px) {
+  .timelineSection {
+    padding: var(--space-8) 0 var(--space-12);
+  }
+
+  .timelineTrack {
+    gap: var(--space-6);
+  }
+
   .timelineTrack::before {
     left: 20px;
   }
+
+  .timelineNode {
+    gap: var(--space-3);
+  }
+
   .nodeLeft {
     width: 40px;
   }
+
   .stepIconBubble {
     width: 40px;
     height: 40px;
     font-size: 1.125rem;
+  }
+
+  .stepContentCard {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .stepHeading {
+    font-size: 1.125rem;
+  }
+
+  .timelineFooter {
+    padding: var(--space-6) var(--space-4);
+    margin-top: var(--space-10);
   }
 }

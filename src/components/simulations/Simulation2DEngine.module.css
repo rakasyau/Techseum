@@ -347,3 +347,76 @@
   animation: laserSweep 1.2s ease-in-out infinite;
 }
 
+/* ── Responsive Mobile & Tablet Adaptations ─────────── */
+@media (max-width: 768px) {
+  .canvasWrapper {
+    padding: var(--space-3);
+    min-height: 300px;
+  }
+
+  .stepNavHeader {
+    padding: var(--space-2) var(--space-4);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .stepTabBtn {
+    scroll-snap-align: start;
+    min-height: 38px;
+    padding: 0.35rem 0.75rem;
+  }
+
+  .stepBanner {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .controlBar {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .ctrlBtn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .playBtn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .speedBtn {
+    min-height: 34px;
+    padding: 0.3rem 0.65rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .canvasWrapper {
+    padding: var(--space-2);
+    min-height: 240px;
+  }
+
+  .controlBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stepInfo {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .centerControls {
+    justify-content: center;
+    width: 100%;
+    order: 2;
+  }
+
+  .speedControls {
+    justify-content: center;
+    width: 100%;
+    order: 3;
+  }
+}
+

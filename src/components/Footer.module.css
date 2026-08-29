@@ -262,3 +262,23 @@
     grid-column: 1 / -1;
   }
 }
+
+@media (max-width: 480px) {
+  .newsletter {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .nlInput {
+    min-height: 44px;
+  }
+
+  .nlBtn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .links {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

@@ -41,6 +41,15 @@ export default function Navbar() {
           <span className={styles.logoText}>Techseum</span>
         </Link>
 
+        {/* Mobile Backdrop */}
+        {mobileOpen && (
+          <div
+            className={styles.mobileBackdrop}
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
         <ul
           className={`${styles.links} ${mobileOpen ? styles.linksOpen : ""}`}
           id="nav-links"
@@ -57,6 +66,24 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+
+          {/* Mobile-only drawer footer info */}
+          <li className={styles.mobileDrawerFooter}>
+            {isAuthenticated ? (
+              <div className={styles.mobileUserRow}>
+                <span className={styles.mobileUserName}>{user?.name}</span>
+                <span className={styles.mobileUserStats}>L{level} • {xp} XP • 🔥{streak}</span>
+              </div>
+            ) : (
+              <Link
+                href="/auth/login"
+                className={`btn btn-primary ${styles.mobileLoginBtn}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                {t.nav.login} →
+              </Link>
+            )}
+          </li>
         </ul>
 
         <div className={styles.actions}>
