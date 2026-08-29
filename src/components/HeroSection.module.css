@@ -243,11 +243,10 @@
   letter-spacing: -0.01em;
 }
 
-/* ── Responsive ────────────────────────────────────── */
 @media (max-width: 1024px) {
   .inner {
     grid-template-columns: 1fr;
-    gap: var(--space-12);
+    gap: var(--space-10);
   }
 
   .content {
@@ -268,46 +267,113 @@
   }
 
   .exhibit {
-    max-width: 500px;
+    max-width: 440px;
     margin: 0 auto;
   }
 }
 
 @media (max-width: 640px) {
   .hero {
-    padding-top: calc(var(--nav-height) + var(--space-6));
-    padding-bottom: var(--space-10);
+    padding-top: calc(var(--nav-height) + var(--space-4));
+    padding-bottom: var(--space-8);
     min-height: auto;
   }
 
+  .headline {
+    font-size: clamp(2rem, 7.5vw, 2.75rem);
+    letter-spacing: -0.025em;
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+    max-width: 100%;
+  }
+
   .stats {
-    gap: var(--space-6);
+    gap: var(--space-4);
+    width: 100%;
+    justify-content: space-around;
   }
 
   .stat + .stat::before {
-    left: calc(var(--space-6) / -2);
+    left: calc(var(--space-4) / -2);
+    height: 24px;
+  }
+
+  .statValue {
+    font-size: 1.375rem;
+  }
+
+  .statLabel {
+    font-size: 0.75rem;
+  }
+
+  .exhibit {
+    max-width: 320px;
   }
 
   .exhibitCard {
-    width: 200px;
+    width: clamp(160px, 42vw, 190px);
+  }
+
+  .cardLabel {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .cardTitle {
+    font-size: 0.875rem;
   }
 
   .card1 {
-    right: 5%;
+    top: 0;
+    right: 2%;
   }
 
   .card2 {
-    left: 0;
+    bottom: 2%;
+    left: 2%;
   }
 
   .ctas {
     flex-direction: column;
     width: 100%;
+    align-items: stretch;
   }
 
   .ctaPrimary,
   .ctaSecondary {
     width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .headline {
+    font-size: 1.875rem;
+  }
+
+  .stats {
+    gap: var(--space-3);
+  }
+
+  .stat + .stat::before {
+    display: none;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .statValue {
+    font-size: 1.125rem;
+  }
+
+  .exhibit {
     max-width: 280px;
+  }
+
+  .exhibitCard {
+    width: 145px;
   }
 }

@@ -209,6 +209,7 @@
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: var(--space-5);
   }
   .statsRow {
     grid-template-columns: repeat(2, 1fr);
@@ -216,8 +217,70 @@
 }
 
 @media (max-width: 640px) {
+  .heroSection {
+    padding: var(--space-8) 0 var(--space-5);
+  }
+
+  .title {
+    font-size: clamp(1.625rem, 6.5vw, 2.25rem);
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .contentSection {
+    padding: var(--space-8) 0 var(--space-14);
+  }
+
+  .card {
+    padding: var(--space-5) var(--space-4);
+  }
+
   .statsRow {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
+    padding: var(--space-6) 0;
+    margin-bottom: var(--space-8);
+  }
+
+  .statValue {
+    font-size: 1.5rem;
+  }
+
+  .statLabel {
+    font-size: 0.75rem;
+  }
+
+  .showcaseBox {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .showcaseTitle {
+    font-size: 1.25rem;
+  }
+
+  .showcaseSubtitle {
+    font-size: 0.875rem;
+  }
+
+  .categoryGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .categoryCard {
+    padding: var(--space-4);
+  }
+
+  .ctaRow {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ctaRow .btn {
+    width: 100%;
+    justify-content: center;
   }
 }

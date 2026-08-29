@@ -232,7 +232,7 @@
   }
 
   .nodeWrapper {
-    min-width: 70px;
+    min-width: 65px;
   }
 
   .nodeCircle {
@@ -253,5 +253,49 @@
   .hopRow {
     padding: var(--space-2) var(--space-3);
     font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .labHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .protoSwitch {
+    width: 100%;
+  }
+
+  .protoBtn {
+    flex: 1;
+    text-align: center;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .controls button.btn {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .hopLogHeader,
+  .hopRow {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    font-size: 0.75rem;
+    padding: var(--space-2);
+  }
+
+  .hopStatus {
+    font-size: 0.6875rem;
+    padding: 0.15rem 0.35rem;
   }
 }

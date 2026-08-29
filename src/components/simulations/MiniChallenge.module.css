@@ -251,3 +251,52 @@
   padding: 0.5rem 1.25rem;
   font-size: 0.875rem;
 }
+
+@media (max-width: 640px) {
+  .challengeBox {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .question {
+    font-size: 1.0625rem;
+  }
+
+  .content {
+    gap: var(--space-4);
+  }
+
+  .optionBtn {
+    padding: var(--space-3) var(--space-3);
+    gap: var(--space-3);
+    min-height: 44px;
+  }
+
+  .optText {
+    font-size: 0.875rem;
+  }
+
+  .orderingItem {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .orderLabel {
+    font-size: 0.875rem;
+  }
+
+  .moveBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .footer button.btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .retryBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

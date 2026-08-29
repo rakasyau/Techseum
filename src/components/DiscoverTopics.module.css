@@ -162,8 +162,8 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 0 auto;
+    max-width: 100%;
+    gap: var(--space-4);
   }
 
   .filters {
@@ -172,10 +172,23 @@
     flex-wrap: nowrap;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 0 var(--space-2);
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 0 var(--space-2) var(--space-2);
+    width: 100%;
+  }
+
+  .filterPill {
+    scroll-snap-align: start;
+    min-height: 40px;
+    flex-shrink: 0;
   }
 
   .filters::-webkit-scrollbar {
     display: none;
+  }
+
+  .cardBody {
+    padding: var(--space-4);
   }
 }

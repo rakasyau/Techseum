@@ -241,33 +241,83 @@
 
 @media (max-width: 1024px) {
   .badgesGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .challengesGrid {
     grid-template-columns: repeat(2, 1fr);
   }
   .statsCard {
     grid-template-columns: 1fr;
+    gap: var(--space-4);
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .heroSection {
     padding: var(--space-8) 0 var(--space-6);
   }
+
+  .title {
+    font-size: clamp(1.625rem, 6.5vw, 2.25rem);
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
   .statsCard {
     padding: var(--space-5) var(--space-4);
+    gap: var(--space-4);
+    margin-top: var(--space-5);
   }
+
+  .badgesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
   .badgeCard {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .badgeIconBox {
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--space-1);
+  }
+
+  .badgeName {
+    font-size: 0.875rem;
+  }
+
+  .badgeDesc {
+    font-size: 0.75rem;
+  }
+
+  .challengesGridSection {
+    padding: var(--space-8) 0 var(--space-16);
+  }
+
+  .challengesGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .challengeItem {
     padding: var(--space-4);
   }
-  .challengeItem {
-    padding: var(--space-5) var(--space-4);
+
+  .chTitle {
+    font-size: 1rem;
   }
+
+  .chQuestion {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 380px) {
   .badgesGrid {
-    grid-template-columns: 1fr;
-  }
-  .challengesGrid {
     grid-template-columns: 1fr;
   }
 }

@@ -105,7 +105,36 @@
 }
 
 @media (max-width: 768px) {
+  .heroSection {
+    padding: var(--space-8) 0 var(--space-5);
+  }
+
+  .title {
+    font-size: clamp(1.625rem, 6.5vw, 2.25rem);
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
   .tabsRow {
     grid-template-columns: 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  .tabBtn {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .tabIcon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.25rem;
+  }
+
+  .workbenchSection {
+    padding: var(--space-6) 0 var(--space-16);
   }
 }

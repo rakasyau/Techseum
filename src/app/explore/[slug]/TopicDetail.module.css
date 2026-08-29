@@ -546,6 +546,7 @@
 @media (max-width: 1024px) {
   .twoColGrid {
     grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
   .relatedGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -554,7 +555,56 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    padding: var(--space-8) 0;
+    padding: var(--space-6) 0 var(--space-8);
+  }
+
+  .topicTitle {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+
+  .topicTagline {
+    font-size: 1rem;
+  }
+
+  .actionRow {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  .actionRow .btn,
+  .actionRow .iconActionBtn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  .sectionHeaderRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .modeToggle {
+    width: 100%;
+  }
+
+  .modeBtn {
+    flex: 1;
+    justify-content: center;
+    min-height: 42px;
+  }
+
+  .depthSection {
+    padding: var(--space-10) 0;
+  }
+
+  .depthHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
   }
 
   .levelTabs {
@@ -563,6 +613,7 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
+    padding: 3px;
   }
 
   .levelTabs::-webkit-scrollbar {
@@ -573,21 +624,75 @@
     white-space: nowrap;
     scroll-snap-align: start;
     min-height: 42px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8125rem;
+    flex-shrink: 0;
   }
 
-  .heroActions {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
+  .depthCard {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-5);
+    border-radius: var(--radius-lg);
   }
 
-  .heroActions .btn,
-  .heroActions .iconActionBtn {
-    width: 100%;
-    justify-content: center;
+  .depthCardTop {
+    padding-bottom: var(--space-4);
+  }
+
+  .currentSummary {
+    font-size: 1rem;
+  }
+
+  .keyConceptsBox {
+    padding: var(--space-4);
+  }
+
+  .proseContent {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    overflow-wrap: break-word;
+  }
+
+  .challengeSection {
+    padding: var(--space-10) 0;
+  }
+
+  .relatedSection {
+    padding: var(--space-10) 0 var(--space-16);
   }
 
   .relatedGrid {
     grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .lockedCard {
+    padding: var(--space-8) var(--space-4);
+    margin: 0 var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumbBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .metaBadges {
+    gap: 6px;
+  }
+
+  .categoryBadge,
+  .diffBadge {
+    font-size: 0.6875rem;
+  }
+
+  .proseContent h3 {
+    font-size: 1.1875rem;
+  }
+
+  .proseContent h4 {
+    font-size: 1.0625rem;
   }
 }

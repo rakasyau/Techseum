@@ -334,15 +334,16 @@
   .mobileUserRow {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 0.75rem 1rem;
+    gap: 6px;
+    padding: 0.875rem 1rem;
     background: var(--color-bg-alt);
     border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
   }
 
   .mobileUserName {
     font-weight: 700;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     color: var(--color-text);
   }
 
@@ -355,16 +356,86 @@
   .mobileLoginBtn {
     width: 100%;
     text-align: center;
+    min-height: 44px;
   }
 
   .hamburger {
     display: flex;
   }
+}
 
-  @media (max-width: 480px) {
-    .loginBtn {
-      display: none;
-    }
+@media (max-width: 640px) {
+  .inner {
+    padding: 0 var(--space-4);
+  }
+
+  .actions {
+    gap: var(--space-1);
+  }
+
+  .userXpTag {
+    display: none;
+  }
+
+  .userBadgeBtn {
+    padding: 0.25rem 0.5rem;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner {
+    padding: 0 var(--space-3);
+  }
+
+  .logoText {
+    font-size: 1.125rem;
+  }
+
+  .logoMark {
+    font-size: 1.125rem;
+  }
+
+  .loginBtn {
+    display: none;
+  }
+
+  .logoutBtn {
+    display: none;
+  }
+
+  .iconBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .langBtn {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.6875rem;
+  }
+
+  .hamburger {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+  }
+
+  .links {
+    padding: var(--space-4) var(--space-4) calc(var(--space-5) + var(--safe-bottom));
+  }
+}
+
+@media (max-width: 360px) {
+  .inner {
+    padding: 0 var(--space-2);
+  }
+
+  .logoText {
+    display: none;
+  }
+
+  .logoMark {
+    font-size: 1.5rem;
   }
 }
 

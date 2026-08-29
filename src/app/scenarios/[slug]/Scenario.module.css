@@ -232,16 +232,41 @@
 }
 
 @media (max-width: 640px) {
+  .heroSection {
+    padding: var(--space-8) 0 var(--space-5);
+  }
+
+  .title {
+    font-size: clamp(1.625rem, 6.5vw, 2.25rem);
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .metaRow {
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .durationBadge,
+  .stepsBadge {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+  }
+
   .timelineSection {
-    padding: var(--space-8) 0 var(--space-12);
+    padding: var(--space-6) 0 var(--space-12);
   }
 
   .timelineTrack {
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 
   .timelineTrack::before {
     left: 20px;
+    top: 20px;
+    bottom: 20px;
   }
 
   .timelineNode {
@@ -258,16 +283,64 @@
     font-size: 1.125rem;
   }
 
+  .nodeTime {
+    font-size: 0.6875rem;
+  }
+
   .stepContentCard {
-    padding: var(--space-5) var(--space-4);
+    padding: var(--space-4);
+    gap: var(--space-3);
   }
 
   .stepHeading {
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
+  }
+
+  .stepSummaryText {
+    font-size: 0.875rem;
+  }
+
+  .technicalBox {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .techDetails {
+    font-size: 0.8125rem;
   }
 
   .timelineFooter {
-    padding: var(--space-6) var(--space-4);
-    margin-top: var(--space-10);
+    padding: var(--space-5) var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .footHeading {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .footActions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .footActions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .timelineTrack::before {
+    left: 16px;
+  }
+
+  .nodeLeft {
+    width: 32px;
+  }
+
+  .stepIconBubble {
+    width: 32px;
+    height: 32px;
+    font-size: 0.875rem;
   }
 }

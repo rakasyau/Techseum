@@ -215,10 +215,28 @@
 }
 
 @media (max-width: 768px) {
+  .heroSection {
+    padding: var(--space-8) 0 var(--space-5);
+  }
+
+  .title {
+    font-size: clamp(1.625rem, 6.5vw, 2.25rem);
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .tableSection {
+    padding: var(--space-6) 0 var(--space-16);
+  }
+
   .tableHeader,
   .tableRow {
     grid-template-columns: 50px 1.5fr 1fr;
+    padding: var(--space-3) var(--space-4);
   }
+
   .specialtyCol,
   .streakCol,
   .thSpecialty,
@@ -230,18 +248,61 @@
 @media (max-width: 640px) {
   .controlsRow {
     gap: var(--space-3);
+    margin-top: var(--space-5);
   }
+
   .timeframeTabs {
     width: 100%;
   }
+
   .tfBtn {
     flex: 1;
     text-align: center;
     padding: 0.45rem 0.5rem;
     font-size: 0.8125rem;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
   .catPills {
     -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .catPill {
+    scroll-snap-align: start;
+    min-height: 38px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 36px 1fr auto;
+    padding: var(--space-3) var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.6875rem;
+  }
+
+  .userName {
+    font-size: 0.8125rem;
+  }
+
+  .userBadges {
+    font-size: 0.6875rem;
+  }
+
+  .xpCol {
+    font-size: 0.8125rem;
   }
 }
