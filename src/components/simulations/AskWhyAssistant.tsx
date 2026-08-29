@@ -118,7 +118,7 @@ export default function AskWhyAssistant({ topic, currentLevelName }: AskWhyAssis
           <div className={styles.chatHeader}>
             <div className={styles.chatHeaderLeft}>
               <span className={styles.aiAvatar}>◉</span>
-              <div>
+              <div className={styles.chatHeaderInfo}>
                 <h4 className={styles.chatTitle}>
                   {language === "id" ? "Pemandu AI Museum" : "Museum AI Guide"}
                 </h4>

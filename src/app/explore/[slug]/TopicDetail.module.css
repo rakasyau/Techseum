@@ -474,9 +474,16 @@
 
 .twoColGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-8);
   align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+}
+
+.twoColGrid > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* ── Related Section ───────────────────────────────── */
@@ -545,7 +552,7 @@
 
 @media (max-width: 1024px) {
   .twoColGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
   }
   .relatedGrid {
