@@ -214,6 +214,7 @@ function Exhibit({
       {kind === "gpu" && <Gpu exploded={exploded} />}
       {kind === "ram" && <Ram exploded={exploded} />}
       {kind === "ssd" && <Ssd exploded={exploded} />}
+      {kind === "cache" && <Cache exploded={exploded} />}
       {kind === "camera" && <Camera exploded={exploded} />}
       {kind === "router" && <Router exploded={exploded} />}
       {kind === "battery" && <Battery exploded={exploded} />}
@@ -601,6 +602,69 @@ function Cloud({ exploded }: { exploded: boolean }) {
           <mesh>
             <boxGeometry args={[2.6, 0.05, 0.9]} />
             <meshStandardMaterial color={METAL} metalness={0.7} roughness={0.3} />
+          </mesh>
+        </group>
+      ) : null}
+    </group>
+  );
+}
+
+/* The cache hierarchy as a stepped stack: the core on top, then L1, L2 and the
+   larger shared L3 below it — the physical shape of the latency ladder. */
+function Cache({ exploded }: { exploded: boolean }) {
+  const o = exploded ? 0.16 : 0;
+  const levels = [
+    { y: 0.52, w: 0.95, d: 0.95, color: INK },
+    { y: 0.16, w: 1.25, d: 1.05, color: ACCENT },
+    { y: -0.2, w: 1.6, d: 1.25, color: INK_SOFT },
+    { y: -0.58, w: 2, d: 1.5, color: INK_SOFT },
+  ];
+
+  return (
+    <group>
+      {/* processor core */}
+      <group position={[0, levels[0].y + o * 3.2, 0]}>
+        <Part args={[0.95, 0.26, 0.95]} radius={0.04} color={INK} />
+        <mesh position={[0, 0.16, 0]}>
+          <boxGeometry args={[0.6, 0.03, 0.6]} />
+          <meshStandardMaterial color={METAL} metalness={0.85} roughness={0.2} />
+        </mesh>
+      </group>
+
+      {/* L1, L2, L3 blocks, each wider than the one above */}
+      {levels.slice(1).map((level, i) => {
+        const isShared = i === levels.length - 2;
+        return (
+          <group key={i} position={[0, level.y + o * (2 - i), 0]}>
+            <Part
+              args={[level.w, 0.22, level.d]}
+              radius={0.04}
+              color={level.color}
+            />
+            {/* SRAM bank strips across the top face */}
+            {Array.from({ length: 5 }).map((_, j) => (
+              <mesh
+                key={j}
+                position={[-level.w / 2 + 0.2 + j * ((level.w - 0.4) / 4), 0.13, 0]}
+              >
+                <boxGeometry args={[0.1, 0.02, level.d * 0.62]} />
+                <meshStandardMaterial
+                  color={isShared ? SIGNAL : ACCENT_SOFT}
+                  metalness={0.6}
+                  roughness={0.3}
+                />
+              </mesh>
+            ))}
+          </group>
+        );
+      })}
+
+      {/* the memory bus leaving the chip */}
+      {exploded ? (
+        <group position={[0, levels[3].y - 0.55, 0]}>
+          <mesh>
+            <boxGeometry args={[2.5, 0.05, 1.7]} />
+            <meshStandardMaterial color={BOARD} metalness={0.2} roughness={0.6} />
           </mesh>
         </group>
       ) : null}

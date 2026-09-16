@@ -23,7 +23,8 @@ server-side and streams answers. It is briefed on each exhibit's scope, depth
 levels, simulation steps and part names, then answers from general knowledge
 about that subject rather than reciting the exhibit text.
 Interface copy ships in English and Indonesian via a dictionary in
-`lib/i18n/`. 3D exhibits are authored procedurally in code rather than loaded
+`lib/i18n/`, and exhibit prose is translated through overlays in
+`lib/i18n/content/` (one file per exhibit) merged over the English source. 3D exhibits are authored procedurally in code rather than loaded
 from `.glb` files.
 ## Users
 
@@ -67,7 +68,7 @@ Consulted on desktop and mobile browsers. A visitor browses the museum (Explore)
 **Explicitly undecided / not in this build:**
 - Real MongoDB persistence, NextAuth, and API route handlers (PRD section 8) are deferred; the UI reads typed seed data so they can be swapped in later.
 - Live LLM integration for "Ask Why".
-- Real `.glb` 3D assets, PWA/offline, and full i18n are deferred.
+- Real `.glb` 3D assets and PWA/offline are deferred.
 - Any commercial claims, and per-topic accuracy review (PRD risk table).
 
 ## Brand Commitments

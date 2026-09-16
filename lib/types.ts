@@ -79,6 +79,7 @@ export type Model3DKind =
   | "gpu"
   | "ram"
   | "ssd"
+  | "cache"
   | "camera"
   | "router"
   | "battery"
@@ -185,35 +186,6 @@ export interface Badge {
   criteria: string;
   earned?: boolean;
   progress?: number;
-}
-
-export interface Learner {
-  username: string;
-  displayName: string;
-  avatarSeed: string;
-  xp: number;
-  streak: number;
-  badges: number;
-  trend: number;
-  favorite: CategoryId;
-  sparkline: number[];
-  country: string;
-}
-
-export interface UserProfile {
-  username: string;
-  displayName: string;
-  avatarSeed: string;
-  bio: string;
-  xp: number;
-  streak: { current: number; longest: number };
-  joined: string;
-  bookmarks: string[];
-  completedTopics: string[];
-  inProgressTopics: string[];
-  badges: string[];
-  categoryProgress: { category: CategoryId; completed: number; total: number }[];
-  history: { date: string; topicSlug: string; action: string; xp: number }[];
 }
 
 /* ---------------- labs ---------------- */

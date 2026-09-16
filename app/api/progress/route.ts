@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { msg, translateValidation } from "@/lib/i18n/api-messages";
 import { getCurrentUser } from "@/lib/auth";
 import {
   bookmarkSchema,
@@ -26,12 +28,12 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    return NextResponse.json({ error: msg("invalidBody", getRequestLocale(request)) }, { status: 400 });
   }
 
   const user = await getCurrentUser();
   if (!user) {
-    return NextResponse.json({ error: "Not signed in." }, { status: 401 });
+    return NextResponse.json({ error: msg("notSignedIn", getRequestLocale(request)) }, { status: 401 });
   }
 
   const action =
@@ -109,13 +111,15 @@ export async function POST(request: Request) {
 
       default:
         return NextResponse.json(
-          { error: "Unknown action." },
+          { error: msg("unknownAction", getRequestLocale(request)) },
           { status: 400 }
         );
     }
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Could not save your progress.";
+      error instanceof Error
+        ? error.message
+        : msg("saveProgress", getRequestLocale(request));
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }

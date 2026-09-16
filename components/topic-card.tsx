@@ -4,11 +4,11 @@ import * as React from "react";
 import Link from "next/link";
 import { Bookmark, Compass, ArrowUpRight } from "lucide-react";
 import type { Topic } from "@/lib/types";
-import { DIFFICULTY_LABEL } from "@/lib/types";
-import { CATEGORY_MAP } from "@/lib/data/categories";
 import { SchematicThumb } from "./schematic-thumb";
 import { cn, formatCount } from "@/lib/utils";
 import { useExplorerCount } from "@/lib/use-stats";
+import { useLanguage, interpolate } from "./language-provider";
+import { useTopic } from "@/lib/i18n/content/use-content";
 
 /* The exhibit card. Thumbnail-led so the diagram does the selling; metadata
    sits in one quiet row beneath it. Hover tilts the preview toward the
@@ -26,8 +26,10 @@ export function TopicCard({
 }) {
   const [bookmarked, setBookmarked] = React.useState(initialBookmarked);
   const ref = React.useRef<HTMLDivElement>(null);
-  const cat = CATEGORY_MAP[topic.category];
-  const explorers = useExplorerCount(topic.slug);
+  const { t } = useLanguage();
+  const localTopic = useTopic(topic);
+  const cat = t.wings[topic.category];
+  const explorers = useExplorerCount(localTopic.slug);
 
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
@@ -66,7 +68,7 @@ export function TopicCard({
         >
           <div className="relative">
             <SchematicThumb
-              kind={topic.glyph}
+              kind={localTopic.glyph}
               className={cn(
                 "w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]",
                 size === "lg" ? "aspect-[16/10]" : "aspect-[16/11]"
@@ -74,8 +76,8 @@ export function TopicCard({
             />
 
             <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-line bg-paper/95 px-2.5 py-1 text-2xs font-medium text-ink-soft backdrop-blur-sm">
-              <DifficultyDots level={topic.difficultyDefault} />
-              {DIFFICULTY_LABEL[topic.difficultyDefault]}
+              <DifficultyDots level={localTopic.difficultyDefault} />
+              {t.difficulty[localTopic.difficultyDefault - 1]}
             </span>
 
             <button
@@ -85,11 +87,10 @@ export function TopicCard({
                 e.stopPropagation();
                 setBookmarked((v) => !v);
               }}
-              aria-label={
-                bookmarked
-                  ? `Remove ${topic.title} from bookmarks`
-                  : `Bookmark ${topic.title}`
-              }
+              aria-label={interpolate(
+                bookmarked ? t.card.bookmarkRemove : t.card.bookmarkAdd,
+                { title: localTopic.title }
+              )}
               aria-pressed={bookmarked}
               className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-line bg-paper/95 text-ink-soft backdrop-blur-sm transition-all duration-200 hover:border-ink hover:text-ink"
             >
@@ -109,7 +110,9 @@ export function TopicCard({
               <span aria-hidden className="text-ink-ghost">
                 /
               </span>
-              <span>{topic.levels.length} levels</span>
+              <span>
+                {localTopic.levels.length} {t.card.levels}
+              </span>
             </div>
 
             <h3
@@ -118,11 +121,11 @@ export function TopicCard({
                 size === "lg" ? "text-xl" : "text-[17px]"
               )}
             >
-              {topic.title}
+              {localTopic.title}
             </h3>
 
             <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-ink-muted">
-              {topic.summary}
+              {localTopic.summary}
             </p>
 
             <div className="mt-4 flex items-center justify-between border-t border-line pt-3.5">
@@ -136,12 +139,12 @@ export function TopicCard({
                 ) : (
                   <>
                     <span className="tnum">{formatCount(explorers)}</span>
-                    explorers
+                    {t.card.explorers}
                   </>
                 )}
               </span>
               <span className="flex items-center gap-1 text-2xs font-medium text-ink-muted transition-colors group-hover:text-accent">
-                Explore
+                {t.card.explore}
                 <ArrowUpRight
                   size={13}
                   className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -172,8 +175,10 @@ export function DifficultyDots({ level }: { level: number }) {
 }
 
 /* Compact list row used in search results and related-topics rails. */
-export function TopicRow({ topic }: { topic: Topic }) {
-  const cat = CATEGORY_MAP[topic.category];
+export function TopicRow({ topic: source }: { topic: Topic }) {
+  const { t } = useLanguage();
+  const topic = useTopic(source);
+  const cat = t.wings[topic.category];
   return (
     <Link
       href={`/explore/${topic.slug}`}
@@ -191,7 +196,7 @@ export function TopicRow({ topic }: { topic: Topic }) {
         <span className="mt-0.5 flex items-center gap-2 text-2xs text-ink-muted">
           {cat?.label}
           <span aria-hidden>·</span>
-          {DIFFICULTY_LABEL[topic.difficultyDefault]}
+          {t.difficulty[topic.difficultyDefault - 1]}
         </span>
       </span>
       <ArrowUpRight

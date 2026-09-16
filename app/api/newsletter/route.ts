@@ -8,6 +8,8 @@ import {
   sendWelcomeEmail,
 } from "@/lib/resend";
 import { firstIssue } from "@/lib/validation";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { msg, translateValidation } from "@/lib/i18n/api-messages";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,16 +20,23 @@ const subscribeSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  const requestLocale = getRequestLocale(request);
   let payload: unknown;
   try {
     payload = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    return NextResponse.json(
+      { error: msg("invalidBody", requestLocale) },
+      { status: 400 }
+    );
   }
 
   const parsed = subscribeSchema.safeParse(payload);
   if (!parsed.success) {
-    return NextResponse.json({ error: firstIssue(parsed.error) }, { status: 400 });
+    return NextResponse.json(
+      { error: translateValidation(firstIssue(parsed.error), requestLocale) },
+      { status: 400 }
+    );
   }
 
   const email = parsed.data.email;
@@ -47,7 +56,7 @@ export async function POST(request: Request) {
     }
   } catch {
     return NextResponse.json(
-      { error: "Could not save your subscription. Please try again." },
+      { error: msg("couldNotSave", requestLocale) },
       { status: 503 }
     );
   }

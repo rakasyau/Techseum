@@ -6,6 +6,7 @@ import { SlidersHorizontal, X } from "lucide-react";
 import type { CategoryId, Topic } from "@/lib/types";
 import { CATEGORIES } from "@/lib/data/categories";
 import { TopicCard } from "@/components/topic-card";
+import { useLanguage } from "@/components/language-provider";
 import { cn } from "@/lib/utils";
 
 type Filter = "all" | CategoryId;
@@ -20,13 +21,14 @@ export function DiscoverGrid({
   initial?: Filter;
 }) {
   const [filter, setFilter] = React.useState<Filter>(initial);
+  const { t } = useLanguage();
   const reduce = useReducedMotion();
 
   const filters: { id: Filter; label: string; count: number }[] = [
-    { id: "all", label: "All exhibits", count: topics.length },
+    { id: "all", label: t.explore.allExhibits, count: topics.length },
     ...CATEGORIES.map((c) => ({
       id: c.id as Filter,
-      label: c.label,
+      label: t.wings[c.id].label,
       count: topics.filter((t) => t.category === c.id).length,
     })),
   ];
@@ -73,10 +75,10 @@ export function DiscoverGrid({
               <SlidersHorizontal size={19} />
             </span>
             <p className="mt-4 font-display text-base font-semibold">
-              No exhibits in this wing yet
+              {t.explore.noExhibitsWing}
             </p>
             <p className="mt-1.5 max-w-[38ch] text-sm text-ink-muted">
-              We are building it. Try another wing, or browse everything.
+              {t.explore.noExhibitsWingLead}
             </p>
             <button
               type="button"
@@ -84,7 +86,7 @@ export function DiscoverGrid({
               className="mt-5 inline-flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-[13px] font-medium transition-colors hover:border-ink"
             >
               <X size={13} />
-              Clear filter
+              {t.explore.clearFilter}
             </button>
           </div>
         ) : (

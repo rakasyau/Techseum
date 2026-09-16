@@ -3,6 +3,7 @@
 import { Compass } from "lucide-react";
 import { useExplorerCount } from "@/lib/use-stats";
 import { formatCount } from "@/lib/utils";
+import { useLanguage } from "./language-provider";
 
 /*
  * The real number of learners who have opened this exhibit, read from the
@@ -12,6 +13,7 @@ import { formatCount } from "@/lib/utils";
  */
 export function ExplorerCount({ slug }: { slug: string }) {
   const count = useExplorerCount(slug);
+  const { t } = useLanguage();
 
   return (
     <span className="flex items-center gap-1.5 text-2xs text-ink-muted">
@@ -24,7 +26,7 @@ export function ExplorerCount({ slug }: { slug: string }) {
       ) : (
         <>
           <span className="tnum">{formatCount(count)}</span>
-          explorers
+          {t.card.explorers}
         </>
       )}
     </span>

@@ -81,7 +81,7 @@ export function ElectronicsBench() {
             }}
           />
           <div className="no-scrollbar relative overflow-x-auto">
-          <svg viewBox="0 0 640 320" className="relative block w-full min-w-[560px]" role="img" aria-label="Battery, resistor and LED circuit with the current flow visualized">
+          <svg viewBox="0 0 640 320" className="relative block w-full min-w-[560px]" role="img" aria-label={t.lab.circuitLabel}>
             {/* wires */}
             <g
               fill="none"

@@ -4,21 +4,27 @@ import { User } from "@/lib/models/user";
 import { startSession } from "@/lib/auth";
 import { verifyPassword } from "@/lib/password";
 import { loginSchema, firstIssue } from "@/lib/validation";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { msg, translateValidation } from "@/lib/i18n/api-messages";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  const locale = getRequestLocale(request);
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    return NextResponse.json({ error: msg("invalidBody", locale) }, { status: 400 });
   }
 
   const parsed = loginSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: firstIssue(parsed.error) }, { status: 400 });
+    return NextResponse.json(
+      { error: translateValidation(firstIssue(parsed.error), locale) },
+      { status: 400 }
+    );
   }
 
   const identifier = parsed.data.identifier.toLowerCase().trim();
@@ -33,7 +39,7 @@ export async function POST(request: Request) {
       .lean();
   } catch {
     return NextResponse.json(
-      { error: "The service is temporarily unavailable. Please try again." },
+      { error: msg("serviceUnavailable", locale) },
       { status: 503 }
     );
   }
@@ -52,7 +58,7 @@ export async function POST(request: Request) {
 
   if (!doc || !ok) {
     return NextResponse.json(
-      { error: "Those credentials do not match an account." },
+      { error: msg("credentialsMismatch", locale) },
       { status: 401 }
     );
   }

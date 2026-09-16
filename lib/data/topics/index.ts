@@ -1,5 +1,6 @@
 import type { Topic } from "../../types";
 import { computingTopics } from "./computing";
+import { cacheTopic } from "./cache";
 import { networkingTopics } from "./networking";
 import { electronicsTopics } from "./electronics";
 import { everydayTopics } from "./everyday";
@@ -7,6 +8,7 @@ import { modernTopics } from "./modern";
 
 export const TOPICS: Topic[] = [
   ...computingTopics,
+  cacheTopic,
   ...networkingTopics,
   ...electronicsTopics,
   ...everydayTopics,
@@ -65,7 +67,3 @@ export const LEARNING_PATHS: {
     accent: "warn",
   },
 ];
-
-export const ALL_TAG_OPTIONS = Array.from(
-  new Set(TOPICS.flatMap((t) => t.tags))
-).sort();

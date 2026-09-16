@@ -7,7 +7,8 @@ import { useLanguage } from "@/components/language-provider";
 import { useLeaderboard, useSiteStats } from "@/lib/use-stats";
 import { Avatar } from "@/components/rank-board";
 import { Progress } from "@/components/ui/progress";
-import { categoryLabel } from "@/lib/data/categories";
+import { useTopics } from "@/lib/i18n/content/use-content";
+import { TOPICS } from "@/lib/data/topics";
 import { cn, formatNumber } from "@/lib/utils";
 
 /*
@@ -21,6 +22,11 @@ export function HomeBoards() {
   const stats = useSiteStats();
   const { entries, loading, failed } = useLeaderboard("all");
 
+  const localized = useTopics(TOPICS);
+  const localizedBySlug = React.useMemo(
+    () => new Map(localized.map((topic) => [topic.slug, topic])),
+    [localized]
+  );
   const topics = stats?.topics ?? [];
   const maxExplorers = stats?.maxExplorers ?? 0;
 
@@ -66,10 +72,10 @@ export function HomeBoards() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[13.5px] font-medium text-ink">
-                      {topic.title}
+                      {localizedBySlug.get(topic.slug)?.title ?? topic.title}
                     </span>
                     <span className="mt-0.5 block text-2xs text-ink-muted">
-                      {categoryLabel(topic.category)} ·{" "}
+                      {t.wings[topic.category as keyof typeof t.wings].label} ·{" "}
                       <span className="tnum">{topic.explorers}</span>{" "}
                       {t.topic.explorers}
                     </span>

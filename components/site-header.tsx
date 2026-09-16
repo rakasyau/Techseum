@@ -128,7 +128,7 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setMobileOpen((v) => !v)}
-              aria-label="Toggle menu"
+              aria-label={t.nav.toggleMenu}
               aria-expanded={mobileOpen}
               className="grid h-10 w-10 place-items-center rounded-full border border-line text-ink-soft transition-colors hover:border-ink hover:text-ink xl:hidden"
             >

@@ -58,8 +58,8 @@ export function Hero() {
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
             </span>
             <span className="text-2xs font-medium tracking-[0.02em] text-ink-soft">
-              {t.home.featured}:{" "}
-              <span className="text-ink">How Neural Networks Learn</span>
+              {t.home.heroFeatured}:{" "}
+              <span className="text-ink">{t.home.heroCpuTitle}</span>
             </span>
           </div>
 
@@ -199,10 +199,10 @@ export function Hero() {
               <div className="flex items-center justify-between border-t border-line px-4 py-3">
                 <div>
                   <p className="font-display text-[15px] font-semibold tracking-[-0.02em]">
-                    How Does a CPU Work?
+                    {t.home.heroCpuTitle}
                   </p>
                   <p className="mt-0.5 text-2xs text-ink-muted">
-                    Computing · 4 {t.common.levels}
+                    {t.home.heroCpuMeta}
                   </p>
                 </div>
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-ink text-paper">

@@ -17,11 +17,18 @@ export const BADGE_RULES = {
   deepDiver: "deep-diver",
   sevenDayStreak: "seven-day-streak",
   cpuMaster: "cpu-master",
-  categoryChampionComputing: "category-champion-computing",
-  categoryChampionNetworking: "category-champion-networking",
   challengeChaser: "challenge-chaser",
   labRat: "lab-rat",
 } as const;
+
+/*
+ * One champion badge per wing, derived from the category id rather than
+ * hard-coded, so adding a wing automatically gets a badge. The category list
+ * itself lives in lib/data/categories.ts and is the single source of truth.
+ */
+export function championBadge(categoryId: string): string {
+  return "category-champion-" + categoryId;
+}
 
 // level = floor(sqrt(xp / 100)); kept identical to the value shown in the UI.
 export function xpToLevel(xp: number): number {

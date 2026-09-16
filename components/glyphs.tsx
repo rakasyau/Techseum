@@ -161,11 +161,23 @@ export function GlyphCloud(p: GlyphProps) {
   );
 }
 
+export function GlyphCache(p: GlyphProps) {
+  return (
+    <svg {...base(p)}>
+      <rect x="8" y="15" width="8" height="4" rx="1" />
+      <rect x="6.5" y="10.5" width="11" height="4.5" rx="1" />
+      <rect x="5" y="6" width="14" height="4.5" rx="1" />
+      <rect x="3.5" y="1.5" width="17" height="4.5" rx="1" />
+    </svg>
+  );
+}
+
 export const GLYPH_MAP = {
   cpu: GlyphCpu,
   gpu: GlyphGpu,
   ram: GlyphRam,
   ssd: GlyphSsd,
+  cache: GlyphCache,
   camera: GlyphCamera,
   router: GlyphRouter,
   battery: GlyphBattery,

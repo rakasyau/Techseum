@@ -1,7 +1,14 @@
 import { connectToDatabase } from "./mongodb";
 import { User, toPublicUser, type PublicUser } from "./models/user";
-import { XP_RULES, BADGE_RULES, dedupeKey, nextStreak } from "./xp";
+import {
+  XP_RULES,
+  BADGE_RULES,
+  championBadge,
+  dedupeKey,
+  nextStreak,
+} from "./xp";
 import { TOPICS, getTopic } from "./data/topics";
+import { CATEGORIES } from "./data/categories";
 import { CHALLENGES } from "./data/challenges";
 
 /*
@@ -19,7 +26,15 @@ interface AwardResult {
 
 function awardOnce(
   doc: Record<string, any>,
-  event: { kind: string; amount: number; key: string; topicSlug?: string; label: string }
+  event: {
+    kind: string;
+    amount: number;
+    key: string;
+    topicSlug?: string;
+    label: string;
+    level?: number;
+    challengeId?: string;
+  }
 ): AwardResult {
   const already = (doc.events ?? []).some(
     (e: Record<string, any>) => e.key === event.key
@@ -33,6 +48,8 @@ function awardOnce(
     key: event.key,
     topicSlug: event.topicSlug,
     label: event.label,
+    level: event.level,
+    challengeId: event.challengeId,
     createdAt: new Date(),
   });
   doc.xp = (doc.xp ?? 0) + event.amount;
@@ -90,17 +107,14 @@ function evaluateBadges(doc: Record<string, any>): string[] {
     earned.add(BADGE_RULES.cpuMaster);
   }
 
-  // Category champion: every exhibit in the wing completed.
-  for (const category of ["computing", "networking"] as const) {
-    const slugs = TOPICS.filter((t) => t.category === category).map(
+  // Category champion: every exhibit in the wing completed. Derived from the
+  // category list, so a new wing gets its badge without an edit here.
+  for (const category of CATEGORIES) {
+    const slugs = TOPICS.filter((t) => t.category === category.id).map(
       (t) => t.slug
     );
     if (slugs.length > 0 && slugs.every((s) => completedSlugs.includes(s))) {
-      earned.add(
-        category === "computing"
-          ? BADGE_RULES.categoryChampionComputing
-          : BADGE_RULES.categoryChampionNetworking
-      );
+      earned.add(championBadge(category.id));
     }
   }
 
@@ -148,6 +162,7 @@ export async function recordLevelRead(
       amount: XP_RULES.levelRead,
       key: dedupeKey("level", topicSlug, level),
       topicSlug,
+      level,
       label: `Read ${topic.title} level ${level}`,
     });
     awarded += result.awarded;
@@ -228,6 +243,7 @@ export async function recordChallengeAttempt(
       amount,
       key: dedupeKey("challenge", challengeId),
       topicSlug: challenge.topicSlug,
+      challengeId,
       label: `Solved: ${challenge.question.slice(0, 60)}`,
     });
     awarded += result.awarded;

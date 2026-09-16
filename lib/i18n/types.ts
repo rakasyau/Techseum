@@ -20,6 +20,7 @@ export interface Dict {
     profile: string;
     language: string;
     theme: string;
+    toggleMenu: string;
   };
   common: {
     explore: string;
@@ -42,6 +43,38 @@ export interface Dict {
     startExploring: string;
     viewAll: string;
     skipToContent: string;
+    exhibits: string;
+    sort: string;
+    min: string;
+  };
+  /** Difficulty names, indexed 1..4. */
+  difficulty: string[];
+  /** The five wings: the label used in filters and the one-line blurb. */
+  wings: {
+    computing: { label: string; blurb: string };
+    networking: { label: string; blurb: string };
+    electronics: { label: string; blurb: string };
+    everyday: { label: string; blurb: string };
+    modern: { label: string; blurb: string };
+  };
+  explore: {
+    searchPlaceholder: string;
+    searchLabel: string;
+    clearSearch: string;
+    sortLabel: string;
+    mostExplored: string;
+    easiestFirst: string;
+    aToZ: string;
+    wing: string;
+    allWings: string;
+    nothingMatches: string;
+    nothingMatchesLead: string;
+    clearEverything: string;
+    clearFilters: string;
+    allExhibits: string;
+    noExhibitsWing: string;
+    noExhibitsWingLead: string;
+    clearFilter: string;
   };
   home: {
     heroTitle1: string;
@@ -72,6 +105,39 @@ export interface Dict {
     builtWith: string;
     liveActivity: string;
     noActivity: string;
+    heroFeatured: string;
+    heroCpuTitle: string;
+    heroCpuMeta: string;
+  };
+  /** Art-directed featured exhibit block. */
+  featured: {
+    eyebrow: string;
+    depthLevels: string;
+    quickestRead: string;
+    simulationSteps: string;
+    min: string;
+    open: string;
+    takeChallenge: string;
+  };
+  /** The method strip under the hero. */
+  method: {
+    step1Title: string;
+    step1Body: string;
+    step2Title: string;
+    step2Body: string;
+    step3Title: string;
+    step3Body: string;
+    step4Title: string;
+    step4Body: string;
+    cta: string;
+  };
+  /** Exhibit card and row. */
+  card: {
+    levels: string;
+    explorers: string;
+    explore: string;
+    bookmarkAdd: string;
+    bookmarkRemove: string;
   };
   auth: {
     signInTitle: string;
@@ -131,6 +197,7 @@ export interface Dict {
     relatedTitle: string;
     relatedLead: string;
     read: string;
+    breadcrumb: string;
     levelNames: string[];
     levelHints: string[];
   };
@@ -149,12 +216,19 @@ export interface Dict {
   challenge: {
     correct: string;
     notQuite: string;
+    typeOrdering: string;
+    typeMultipleChoice: string;
+    typeDragDrop: string;
+    correctXp: string;
     checkAnswer: string;
     tryAgain: string;
     chooseBest: string;
     putInOrder: string;
     sortItems: string;
     hint: string;
+    moveUp: string;
+    moveDown: string;
+    to: string;
     attempts: string;
     saved: string;
     daily: string;
@@ -226,6 +300,9 @@ export interface Dict {
     cleanSignal: string;
     someGrain: string;
     visibleNoise: string;
+    circuitLabel: string;
+    resetTopology: string;
+    topologyLabel: string;
   };
   labs: {
     electronicsTitle: string;
@@ -285,8 +362,13 @@ export interface Dict {
     reducedMotion: string;
     reducedMotionLead: string;
     joined: string;
+    eventReadLevel: string;
+    eventCompleted: string;
+    eventChallenge: string;
+    eventDaily: string;
     publicNotice: string;
     viewYours: string;
+    you: string;
   };
   about: {
     title: string;
@@ -394,6 +476,8 @@ export interface Dict {
     browseFree: string;
     lockNote: string;
   };
+  /** Badge catalogue, keyed by badge code. */
+  badges: Record<string, { name: string; description: string; criteria: string }>;
   errors: {
     generic: string;
     network: string;

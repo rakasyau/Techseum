@@ -49,7 +49,11 @@ const xpEventSchema = new Schema(
     // Dedupe key, e.g. "level:cpu:2" or "challenge:cpu-order".
     key: { type: String, required: true },
     topicSlug: { type: String },
+    // Kept for logging and older records. The UI derives a localized label
+    // from kind, topicSlug and level, so this is no longer the display copy.
     label: { type: String },
+    level: { type: Number },
+    challengeId: { type: String },
     createdAt: { type: Date, default: Date.now },
   },
   { _id: false }
@@ -156,6 +160,8 @@ export interface PublicUser {
     amount: number;
     label?: string;
     topicSlug?: string;
+    level?: number;
+    challengeId?: string;
     createdAt: string;
   }[];
   createdAt: string;
@@ -207,6 +213,8 @@ export function toPublicUser(doc: Record<string, any>): PublicUser {
         amount: e.amount,
         label: e.label,
         topicSlug: e.topicSlug,
+        level: e.level,
+        challengeId: e.challengeId,
         createdAt: new Date(e.createdAt).toISOString(),
       })),
     createdAt: new Date(doc.createdAt).toISOString(),

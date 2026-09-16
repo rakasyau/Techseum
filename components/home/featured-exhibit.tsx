@@ -7,6 +7,8 @@ import { Reveal } from "@/components/motion-primitives";
 import { Button } from "@/components/ui/button";
 import { TopicCard } from "@/components/topic-card";
 import { getTopic } from "@/lib/data/topics";
+import { useLanguage } from "@/components/language-provider";
+import { useOptionalTopic } from "@/lib/i18n/content/use-content";
 import { cn } from "@/lib/utils";
 
 /* A featured exhibit is art-directed rather than left as a grid cell: one
@@ -21,8 +23,9 @@ export function FeaturedExhibit({
   flip?: boolean;
   index: number;
 }) {
-  const topic = getTopic(slug);
   const reduce = useReducedMotion();
+  const { t } = useLanguage();
+  const topic = useOptionalTopic(getTopic(slug));
   const [step, setStep] = React.useState(0);
 
   const stepCount = topic?.sim2d.steps.length ?? 4;
@@ -180,7 +183,7 @@ export function FeaturedExhibit({
 
       <div className={cn("order-2", flip && "lg:order-1")}>
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-ink">
-          Featured exhibit {String(index).padStart(2, "0")}
+          {t.featured.eyebrow} {String(index).padStart(2, "0")}
         </span>
         <h3 className="mt-4 font-display text-[clamp(1.5rem,3.4vw,2.2rem)] font-bold leading-[1.08] tracking-[-0.038em] text-balance">
           {topic.title}
@@ -193,23 +196,23 @@ export function FeaturedExhibit({
           <div className="flex items-center gap-2.5">
             <Layers size={16} className="text-ink-faint" aria-hidden />
             <div>
-              <dt className="text-2xs text-ink-muted">Depth levels</dt>
+              <dt className="text-2xs text-ink-muted">{t.featured.depthLevels}</dt>
               <dd className="tnum text-sm font-semibold">{topic.levels.length}</dd>
             </div>
           </div>
           <div className="flex items-center gap-2.5">
             <Clock size={16} className="text-ink-faint" aria-hidden />
             <div>
-              <dt className="text-2xs text-ink-muted">Quickest read</dt>
+              <dt className="text-2xs text-ink-muted">{t.featured.quickestRead}</dt>
               <dd className="tnum text-sm font-semibold">
-                {topic.levels[0].minutes} min
+                {topic.levels[0].minutes} {t.featured.min}
               </dd>
             </div>
           </div>
           <div className="flex items-center gap-2.5">
             <GitBranch size={16} className="text-ink-faint" aria-hidden />
             <div>
-              <dt className="text-2xs text-ink-muted">Simulation steps</dt>
+              <dt className="text-2xs text-ink-muted">{t.featured.simulationSteps}</dt>
               <dd className="tnum text-sm font-semibold">
                 {topic.sim2d.steps.length}
               </dd>
@@ -219,10 +222,10 @@ export function FeaturedExhibit({
 
         <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild>
-            <a href={`/explore/${topic.slug}`}>Open exhibit</a>
+            <a href={`/explore/${topic.slug}`}>{t.featured.open}</a>
           </Button>
           <Button asChild variant="outline">
-            <a href={`/explore/${topic.slug}#challenge`}>Take the challenge</a>
+            <a href={`/explore/${topic.slug}#challenge`}>{t.featured.takeChallenge}</a>
           </Button>
         </div>
       </div>

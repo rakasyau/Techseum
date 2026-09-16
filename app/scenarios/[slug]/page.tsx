@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SCENARIOS, getScenario } from "@/lib/data/scenarios";
 import { getTopic } from "@/lib/data/topics";
+import { getServerLocale } from "@/lib/i18n/server";
+import { localizeScenario, localizeTopic } from "@/lib/i18n/content";
 import { ScenarioContent } from "@/components/scenarios/scenario-content";
 
 export function generateStaticParams() {
@@ -23,11 +25,16 @@ export default function ScenarioPage({
 }: {
   params: { slug: string };
 }) {
-  const scenario = getScenario(params.slug);
-  if (!scenario) notFound();
+  const source = getScenario(params.slug);
+  if (!source) notFound();
 
-  const topic = getTopic(scenario.topicSlug);
-  const others = SCENARIOS.filter((s) => s.slug !== scenario.slug);
+  const locale = getServerLocale();
+  const scenario = localizeScenario(source, locale);
+  const found = getTopic(source.topicSlug);
+  const topic = found ? localizeTopic(found, locale) : undefined;
+  const others = SCENARIOS.filter((s) => s.slug !== source.slug).map((s) =>
+    localizeScenario(s, locale)
+  );
 
   return (
     <ScenarioContent scenario={scenario} topic={topic} others={others} />

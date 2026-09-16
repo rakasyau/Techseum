@@ -13,11 +13,11 @@ export function SiteFooter() {
     {
       title: t.footer.explore,
       links: [
-        { href: "/explore?category=computing", label: "Computing" },
-        { href: "/explore?category=networking", label: "Networking" },
-        { href: "/explore?category=electronics", label: "Electronics" },
-        { href: "/explore?category=everyday", label: "Everyday Tech" },
-        { href: "/explore?category=modern", label: "Modern Tech" },
+        { href: "/explore?category=computing", label: t.wings.computing.label },
+        { href: "/explore?category=networking", label: t.wings.networking.label },
+        { href: "/explore?category=electronics", label: t.wings.electronics.label },
+        { href: "/explore?category=everyday", label: t.wings.everyday.label },
+        { href: "/explore?category=modern", label: t.wings.modern.label },
       ],
     },
     {

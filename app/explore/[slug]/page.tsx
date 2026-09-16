@@ -3,8 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { TOPICS, getTopic, relatedTopics } from "@/lib/data/topics";
-import { CATEGORY_MAP } from "@/lib/data/categories";
-import { DIFFICULTY_LABEL } from "@/lib/types";
+import { getServerDict, getServerLocale } from "@/lib/i18n/server";
+import { localizeTopic } from "@/lib/i18n/content";
 import { SimulationStudio } from "@/components/topic-detail/simulation-studio";
 import { TopicReader } from "@/components/topic-detail/topic-reader";
 import { TopicCard } from "@/components/topic-card";
@@ -21,8 +21,11 @@ export function generateMetadata({
 }: {
   params: { slug: string };
 }): Metadata {
-  const topic = getTopic(params.slug);
-  if (!topic) return { title: "Exhibit not found" };
+  const source = getTopic(params.slug);
+  if (!source) return { title: "Exhibit not found" };
+  // Metadata uses the localized copy so shared links read in the right
+  // language too.
+  const topic = localizeTopic(source, getServerLocale());
   return {
     title: topic.title,
     description: topic.summary,
@@ -30,25 +33,28 @@ export function generateMetadata({
 }
 
 export default function TopicPage({ params }: { params: { slug: string } }) {
-  const topic = getTopic(params.slug);
-  if (!topic) notFound();
+  const source = getTopic(params.slug);
+  if (!source) notFound();
 
-  const cat = CATEGORY_MAP[topic.category];
-  const related = relatedTopics(topic);
+  const t = getServerDict();
+  const locale = getServerLocale();
+  const topic = localizeTopic(source, locale);
+  const cat = t.wings[topic.category];
+  const related = relatedTopics(source).map((r) => localizeTopic(r, locale));
 
   return (
     <article>
       {/* breadcrumb */}
       <div className="mx-auto max-w-[1320px] px-5 pt-8 lg:px-8">
         <nav
-          aria-label="Breadcrumb"
+          aria-label={t.topic.breadcrumb}
           className="flex items-center gap-1.5 text-2xs text-ink-muted"
         >
           <Link
             href="/explore"
             className="underline-offset-4 transition-colors hover:text-ink hover:underline"
           >
-            Explore
+            {t.common.explore}
           </Link>
           <ChevronRight size={12} aria-hidden />
           <Link
@@ -68,7 +74,7 @@ export default function TopicPage({ params }: { params: { slug: string } }) {
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-alt px-2.5 py-1 text-2xs font-medium text-ink-soft">
               <DifficultyDots level={topic.difficultyDefault} />
-              {DIFFICULTY_LABEL[topic.difficultyDefault]}
+              {t.difficulty[topic.difficultyDefault - 1]}
             </span>
             <span className="rounded-full border border-line px-2.5 py-1 text-2xs text-ink-muted">
               {cat?.label}
@@ -100,15 +106,15 @@ export default function TopicPage({ params }: { params: { slug: string } }) {
         <section className="mx-auto max-w-[1320px] px-5 pb-24 pt-16 lg:px-8 lg:pt-20">
           <Reveal>
             <h2 className="font-display text-[clamp(1.4rem,3.2vw,1.9rem)] font-bold tracking-[-0.035em]">
-              Continue from here
+              {t.topic.relatedTitle}
             </h2>
             <p className="mt-2 max-w-[54ch] text-sm leading-relaxed text-ink-muted">
-              These exhibits build directly on what you just read.
+              {t.topic.relatedLead}
             </p>
           </Reveal>
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {related.map((t) => (
-              <TopicCard key={t.slug} topic={t} />
+            {related.map((r) => (
+              <TopicCard key={r.slug} topic={r} />
             ))}
           </div>
         </section>

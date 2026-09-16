@@ -8,8 +8,8 @@ import {
   X,
 } from "lucide-react";
 import type { Difficulty, Topic } from "@/lib/types";
-import { DIFFICULTY_LABEL } from "@/lib/types";
 import { CATEGORIES, CATEGORY_MAP } from "@/lib/data/categories";
+import { useLanguage, interpolate } from "@/components/language-provider";
 import { TopicCard } from "@/components/topic-card";
 import { useSiteStats } from "@/lib/use-stats";
 import { cn } from "@/lib/utils";
@@ -23,6 +23,7 @@ export function ExploreBrowser({
   topics: Topic[];
   initialCategory?: string;
 }) {
+  const { t } = useLanguage();
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState<string>(
     initialCategory && CATEGORY_MAP[initialCategory as keyof typeof CATEGORY_MAP]
@@ -82,15 +83,15 @@ export function ExploreBrowser({
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search exhibits, concepts, tags…"
-              aria-label="Search exhibits"
+              placeholder={t.explore.searchPlaceholder}
+              aria-label={t.explore.searchLabel}
               className="w-full bg-transparent text-sm outline-none placeholder:text-ink-faint"
             />
             {query ? (
               <button
                 type="button"
                 onClick={() => setQuery("")}
-                aria-label="Clear search"
+                aria-label={t.explore.clearSearch}
                 className="shrink-0 text-ink-faint transition-colors hover:text-ink"
               >
                 <X size={15} />
@@ -101,20 +102,20 @@ export function ExploreBrowser({
           <div className="flex items-center gap-2">
             <label className="flex items-center gap-2 rounded-full border border-line px-3.5 py-2.5">
               <span className="text-2xs font-medium uppercase tracking-[0.1em] text-ink-muted">
-                Sort
+                {t.explore.sortLabel}
               </span>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
                 className="cursor-pointer bg-transparent text-[13px] font-medium outline-none"
               >
-                <option value="popular">Most explored</option>
-                <option value="difficulty">Easiest first</option>
-                <option value="title">A to Z</option>
+                <option value="popular">{t.explore.mostExplored}</option>
+                <option value="difficulty">{t.explore.easiestFirst}</option>
+                <option value="title">{t.explore.aToZ}</option>
               </select>
             </label>
             <span className="hidden rounded-full border border-line px-3.5 py-2.5 text-[13px] font-medium text-ink-soft sm:block">
-              <span className="tnum">{results.length}</span> exhibits
+              <span className="tnum">{results.length}</span> {t.common.exhibits}
             </span>
           </div>
         </div>
@@ -122,13 +123,13 @@ export function ExploreBrowser({
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <span className="flex items-center gap-1.5 text-2xs font-medium uppercase tracking-[0.1em] text-ink-muted">
             <LayoutGrid size={12} />
-            Wing
+            {t.explore.wing}
           </span>
           <FilterPill
             active={category === "all"}
             onClick={() => setCategory("all")}
           >
-            All
+            {t.explore.allWings}
           </FilterPill>
           {CATEGORIES.map((c) => (
             <FilterPill
@@ -136,7 +137,7 @@ export function ExploreBrowser({
               active={category === c.id}
               onClick={() => setCategory(c.id)}
             >
-              {c.label}
+              {t.wings[c.id].label}
             </FilterPill>
           ))}
 
@@ -144,7 +145,7 @@ export function ExploreBrowser({
 
           <span className="hidden items-center gap-1.5 text-2xs font-medium uppercase tracking-[0.1em] text-ink-muted sm:flex">
             <SlidersHorizontal size={12} />
-            Level
+            {t.common.level}
           </span>
           {([1, 2, 3, 4] as Difficulty[]).map((l) => (
             <FilterPill
@@ -153,7 +154,7 @@ export function ExploreBrowser({
               onClick={() => toggleLevel(l)}
               className="hidden sm:inline-flex"
             >
-              {DIFFICULTY_LABEL[l]}
+              {t.difficulty[l - 1]}
             </FilterPill>
           ))}
 
@@ -164,7 +165,7 @@ export function ExploreBrowser({
               className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-2xs font-medium text-ink-soft transition-colors hover:border-ink hover:text-ink"
             >
               <X size={12} />
-              Clear {activeFilters} filter{activeFilters > 1 ? "s" : ""}
+              {interpolate(t.explore.clearFilters, { count: activeFilters })}
             </button>
           ) : null}
         </div>
@@ -177,11 +178,10 @@ export function ExploreBrowser({
               <Search size={21} />
             </span>
             <p className="mt-5 font-display text-lg font-semibold">
-              Nothing matches those filters
+              {t.explore.nothingMatches}
             </p>
             <p className="mt-2 max-w-[42ch] text-sm text-ink-muted">
-              Try a broader search, or clear the level filter — the technical
-              exhibits sit at levels 3 and 4.
+              {t.explore.nothingMatchesLead}
             </p>
             <button
               type="button"
@@ -189,7 +189,7 @@ export function ExploreBrowser({
               className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-[13px] font-medium text-paper transition-colors hover:bg-ink-soft"
             >
               <X size={13} />
-              Clear everything
+              {t.explore.clearEverything}
             </button>
           </div>
         ) : (

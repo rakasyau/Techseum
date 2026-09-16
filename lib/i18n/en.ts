@@ -15,6 +15,7 @@ export const en: Dict = {
     profile: "Profile",
     language: "Language",
     theme: "Theme",
+    toggleMenu: "Toggle menu",
   },
   common: {
     explore: "Explore",
@@ -37,6 +38,53 @@ export const en: Dict = {
     startExploring: "Start exploring",
     viewAll: "View all",
     skipToContent: "Skip to content",
+    exhibits: "exhibits",
+    sort: "sort",
+    min: "min",
+  },
+  difficulty: ["Simple", "Beginner", "Technical", "Deep Dive"],
+  wings: {
+    computing: {
+      label: "Computing",
+      blurb: "The silicon that turns electricity into thought.",
+    },
+    networking: {
+      label: "Networking",
+      blurb: "How invisible signals find their way between machines.",
+    },
+    electronics: {
+      label: "Electronics",
+      blurb: "Circuits, sensors and the physics underneath them.",
+    },
+    everyday: {
+      label: "Everyday Tech",
+      blurb: "The objects in your pocket and on your desk.",
+    },
+    modern: {
+      label: "Modern Tech",
+      blurb: "Machine learning, the cloud, and what comes next.",
+    },
+  },
+  explore: {
+    searchPlaceholder: "Search exhibits, concepts, tags…",
+    searchLabel: "Search exhibits",
+    clearSearch: "Clear search",
+    sortLabel: "Sort",
+    mostExplored: "Most explored",
+    easiestFirst: "Easiest first",
+    aToZ: "A to Z",
+    wing: "Wing",
+    allWings: "All",
+    nothingMatches: "Nothing matches those filters",
+    nothingMatchesLead:
+      "Try a broader search, or clear the level filter — the technical exhibits sit at levels 3 and 4.",
+    clearEverything: "Clear everything",
+    clearFilters: "Clear {count} filter(s)",
+    allExhibits: "All exhibits",
+    noExhibitsWing: "No exhibits in this wing yet",
+    noExhibitsWingLead:
+      "We are building it. Try another wing, or browse everything.",
+    clearFilter: "Clear filter",
   },
   home: {
     heroTitle1: "Discover how",
@@ -74,6 +122,40 @@ export const en: Dict = {
     builtWith: "Built with",
     liveActivity: "registered learners",
     noActivity: "Be the first to register",
+    heroFeatured: "Featured",
+    heroCpuTitle: "How Does a CPU Work?",
+    heroCpuMeta: "Computing · 4 levels",
+  },
+  featured: {
+    eyebrow: "Featured exhibit",
+    depthLevels: "Depth levels",
+    quickestRead: "Quickest read",
+    simulationSteps: "Simulation steps",
+    min: "min",
+    open: "Open exhibit",
+    takeChallenge: "Take the challenge",
+  },
+  method: {
+    step1Title: "Pick a depth",
+    step1Body:
+      "Every exhibit offers four levels, from a plain-language intro to a deep dive with the real engineering constraints.",
+    step2Title: "Turn it in your hands",
+    step2Body:
+      "Switch between a stepped 2D diagram and an explorable 3D model. Select any part to read what it does.",
+    step3Title: "Break it deliberately",
+    step3Body:
+      "Open the exploded view, run the simulation at 4x, change the values in a lab bench and watch what happens.",
+    step4Title: "Prove you got it",
+    step4Body:
+      "A short challenge at the end of each exhibit, worth XP and progress toward a badge. No grades, no timers.",
+    cta: "See it on the CPU exhibit",
+  },
+  card: {
+    levels: "levels",
+    explorers: "explorers",
+    explore: "Explore",
+    bookmarkAdd: "Bookmark {title}",
+    bookmarkRemove: "Remove {title} from bookmarks",
   },
   auth: {
     signInTitle: "Welcome back",
@@ -138,6 +220,7 @@ export const en: Dict = {
     relatedTitle: "Continue from here",
     relatedLead: "These exhibits build directly on what you just read.",
     read: "Read",
+    breadcrumb: "Breadcrumb",
     levelNames: ["Simple", "Beginner", "Technical", "Deep Dive"],
     levelHints: [
       "Plain language, no jargon",
@@ -162,12 +245,19 @@ export const en: Dict = {
   challenge: {
     correct: "Correct",
     notQuite: "Not quite",
+    typeOrdering: "Ordering",
+    typeMultipleChoice: "Multiple choice",
+    typeDragDrop: "Sorting",
+    correctXp: "Correct \u2014 +{xp} XP",
     checkAnswer: "Check answer",
     tryAgain: "Try again",
     chooseBest: "Choose the best answer",
     putInOrder: "Put the steps in the right order",
     sortItems: "Sort each item to where it belongs",
     hint: "Hint",
+    moveUp: "Move {label} up",
+    moveDown: "Move {label} down",
+    to: "to",
     attempts: "attempts",
     saved: "Saved to your progress",
     daily: "Daily challenge",
@@ -247,6 +337,10 @@ export const en: Dict = {
     cleanSignal: "Clean signal",
     someGrain: "Some grain",
     visibleNoise: "Visible noise",
+    circuitLabel:
+      "Battery, resistor and LED circuit with the current flow visualized",
+    resetTopology: "Reset topology",
+    topologyLabel: "Network topology with the routed packet path",
   },
   labs: {
     electronicsTitle: "Electronics Bench",
@@ -314,9 +408,14 @@ export const en: Dict = {
     reducedMotionLead:
       "Removes entrance animations and continuous movement. Your system setting is always honoured too.",
     joined: "Joined",
+    eventReadLevel: "Read {title}, level {level}",
+    eventCompleted: "Completed {title}",
+    eventChallenge: "Solved a challenge",
+    eventDaily: "Daily challenge",
     publicNotice:
       "You are viewing a public profile. Progress, badges and bookmarks for other learners are private.",
     viewYours: "View your own",
+    you: "you",
   },
   about: {
     title: "Reading about a machine is not the same as understanding it.",
@@ -448,6 +547,58 @@ export const en: Dict = {
     signIn: "I already have an account",
     browseFree: "Browse How It Works, Lab and About without an account",
     lockNote: "Exhibits, challenges and leaderboard require an account.",
+  },
+  badges: {
+    "first-explorer": {
+      name: "First Explorer",
+      description: "Completed your very first exhibit.",
+      criteria: "Finish every level of any exhibit.",
+    },
+    "cpu-master": {
+      name: "CPU Master",
+      description: "Worked through every level of How Does a CPU Work?",
+      criteria: "Complete all four levels and pass the CPU challenge.",
+    },
+    "seven-day-streak": {
+      name: "Seven Day Streak",
+      description: "Learned something on seven consecutive days.",
+      criteria: "Maintain a 7-day activity streak.",
+    },
+    "deep-diver": {
+      name: "Deep Diver",
+      description: "Read a Deep Dive level and took its challenge.",
+      criteria: "Finish any level 4 explanation and answer its challenge.",
+    },
+    "challenge-chaser": {
+      name: "Challenge Chaser",
+      description: "Completed five exhibits from start to finish.",
+      criteria: "Finish five exhibits.",
+    },
+    "category-champion-computing": {
+      name: "Category Champion: Computing",
+      description: "Completed every exhibit in the Computing wing.",
+      criteria: "Finish all Computing topics.",
+    },
+    "category-champion-networking": {
+      name: "Category Champion: Networking",
+      description: "Completed every exhibit in the Networking wing.",
+      criteria: "Finish all Networking topics.",
+    },
+    "category-champion-electronics": {
+      name: "Category Champion: Electronics",
+      description: "Completed every exhibit in the Electronics wing.",
+      criteria: "Finish all Electronics topics.",
+    },
+    "category-champion-everyday": {
+      name: "Category Champion: Everyday Tech",
+      description: "Completed every exhibit in the Everyday Tech wing.",
+      criteria: "Finish all Everyday Tech topics.",
+    },
+    "category-champion-modern": {
+      name: "Category Champion: Modern Tech",
+      description: "Completed every exhibit in the Modern Tech wing.",
+      criteria: "Finish all Modern Tech topics.",
+    },
   },
   errors: {
     generic: "Something went wrong. Please try again.",

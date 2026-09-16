@@ -152,6 +152,40 @@ function drawing(kind: Model3DKind) {
           <circle cx="86" cy="102" r="2.4" fill={MUTED} stroke="none" />
         </>
       );
+    case "cache":
+      return (
+        <>
+          <rect x="90" y="136" width="140" height="20" rx="3" />
+          <rect
+            x="105"
+            y="112"
+            width="110"
+            height="20"
+            rx="3"
+            stroke={MUTED}
+          />
+          <rect
+            x="120"
+            y="88"
+            width="80"
+            height="20"
+            rx="3"
+            stroke={ACCENT}
+            fill={ACCENT_SOFT}
+          />
+          <rect
+            x="135"
+            y="64"
+            width="50"
+            height="20"
+            rx="3"
+            stroke={MUTED}
+          />
+          <g stroke={MUTED} strokeDasharray="2 3">
+            <path d="M242 146h28M242 74h28" />
+          </g>
+        </>
+      );
     case "camera":
       return (
         <>

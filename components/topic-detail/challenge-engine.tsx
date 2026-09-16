@@ -15,13 +15,14 @@ import type { Challenge } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useProgress } from "@/lib/use-progress";
-import { useLanguage } from "@/components/language-provider";
+import { useLanguage, interpolate } from "@/components/language-provider";
+import { useChallenge } from "@/lib/i18n/content/use-content";
 
 /* One engine, three interaction types. Ordering and drag-drop both resolve to
    a sequence; multiple-choice resolves to a set. Feedback is immediate and
    always explains why, because the explanation is the actual teaching. */
 export function ChallengeEngine({
-  challenge,
+  challenge: source,
   compact = false,
 }: {
   challenge: Challenge;
@@ -29,6 +30,7 @@ export function ChallengeEngine({
 }) {
   const reduce = useReducedMotion();
   const { t } = useLanguage();
+  const challenge = useChallenge(source);
   const { user, recordChallenge } = useProgress();
   const isSequence =
     challenge.type === "ordering" || challenge.type === "drag-drop";
@@ -147,7 +149,7 @@ export function ChallengeEngine({
       <div className="p-4 sm:p-5">
         {challenge.hint && status === "idle" && attempts === 0 ? (
           <p className="mb-4 rounded-xl border border-line bg-paper-alt px-4 py-3 text-[12.5px] leading-relaxed text-ink-muted">
-            <span className="font-medium text-ink-soft">Hint: </span>
+            <span className="font-medium text-ink-soft">{t.challenge.hint}: </span>
             {challenge.hint}
           </p>
         ) : null}
@@ -196,7 +198,7 @@ export function ChallengeEngine({
                   <span className="min-w-0 flex-1">
                     <span className="block text-[13.5px] font-medium">
                       {isDrop && challenge.answer[index]
-                        ? labelFor(id) + " to " + challenge.answer[index]
+                        ? labelFor(id) + " " + t.challenge.to + " " + challenge.answer[index]
                         : labelFor(id)}
                     </span>
                     {detailFor(id) ? (
@@ -210,7 +212,7 @@ export function ChallengeEngine({
                       type="button"
                       onClick={() => move(index, -1)}
                       disabled={index === 0}
-                      aria-label={`Move ${labelFor(id)} up`}
+                      aria-label={interpolate(t.challenge.moveUp, { label: labelFor(id) })}
                       className="grid h-7 w-7 place-items-center rounded-lg border border-line text-ink-muted transition-colors hover:border-ink hover:text-ink disabled:opacity-30"
                     >
                       <ChevronUp size={13} />
@@ -219,7 +221,7 @@ export function ChallengeEngine({
                       type="button"
                       onClick={() => move(index, 1)}
                       disabled={index === order.length - 1}
-                      aria-label={`Move ${labelFor(id)} down`}
+                      aria-label={interpolate(t.challenge.moveDown, { label: labelFor(id) })}
                       className="grid h-7 w-7 place-items-center rounded-lg border border-line text-ink-muted transition-colors hover:border-ink hover:text-ink disabled:opacity-30"
                     >
                       <ChevronDown size={13} />
@@ -309,8 +311,8 @@ export function ChallengeEngine({
                   )}
                 >
                   {status === "correct"
-                    ? `Correct — +${challenge.xpReward} XP`
-                    : "Not quite"}
+                    ? interpolate(t.challenge.correctXp, { xp: challenge.xpReward })
+                    : t.challenge.notQuite}
                 </p>
                 <p className="mt-1.5 max-w-measure text-[13px] leading-relaxed text-ink-soft">
                   {challenge.explanation}
@@ -327,7 +329,7 @@ export function ChallengeEngine({
               disabled={current.length === 0}
               size={compact ? "sm" : "md"}
             >
-              Check answer
+              {t.challenge.checkAnswer}
             </Button>
           ) : (
             <Button
@@ -336,12 +338,12 @@ export function ChallengeEngine({
               size={compact ? "sm" : "md"}
             >
               <RotateCcw size={14} />
-              Try again
+              {t.challenge.tryAgain}
             </Button>
           )}
           {status === "correct" ? (
             <span className="text-2xs text-ink-muted">
-              Saved to your progress
+              {t.challenge.saved}
             </span>
           ) : null}
         </div>

@@ -33,7 +33,7 @@ type Tab = "progress" | "badges" | "bookmarks" | "history" | "settings";
  * user, which the server loads from MongoDB; nothing here is seeded.
  */
 export function ProfileView() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const { user, loading } = useAuth();
   const reduce = useReducedMotion();
   const [tab, setTab] = React.useState<Tab>("progress");
@@ -89,7 +89,7 @@ export function ProfileView() {
   const level = levelProgress(user.xp);
   const earnedCount = user.badges.length;
   const joined = new Date(user.createdAt).toLocaleDateString(
-    "en-GB",
+    locale === "id" ? "id-ID" : "en-GB",
     { month: "long", year: "numeric" }
   );
 
@@ -103,7 +103,7 @@ export function ProfileView() {
               {user.displayName}
             </h1>
             <span className="rounded-full bg-ink px-2.5 py-1 text-2xs font-semibold uppercase tracking-wider text-paper">
-              you
+              {t.profile.you}
             </span>
           </div>
           <p className="mt-1 text-[13px] text-ink-muted">@{user.username}</p>

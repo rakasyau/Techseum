@@ -7,17 +7,21 @@ import { useLanguage } from "@/components/language-provider";
 import { ScenarioTimeline } from "@/components/scenarios/scenario-timeline";
 import { TopicCard } from "@/components/topic-card";
 import { Simulation2D } from "@/components/simulations-2d/simulation-2d";
+import { useScenario, useOptionalTopic } from "@/lib/i18n/content/use-content";
 
 export function ScenarioContent({
-  scenario,
-  topic,
-  others,
+  scenario: source,
+  topic: sourceTopic,
+  others: sourceOthers,
 }: {
   scenario: Scenario;
   topic: Topic | undefined;
   others: Scenario[];
 }) {
   const { t } = useLanguage();
+  const scenario = useScenario(source);
+  const topic = useOptionalTopic(sourceTopic);
+  const others = sourceOthers;
 
   return (
     <article>

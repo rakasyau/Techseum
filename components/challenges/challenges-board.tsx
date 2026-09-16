@@ -6,17 +6,36 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, Flame, Target, Trophy } from "lucide-react";
 import { CHALLENGES, dailyChallenges } from "@/lib/data/challenges";
 import { getTopic } from "@/lib/data/topics";
-import { DIFFICULTY_LABEL } from "@/lib/types";
 import { ChallengeEngine } from "@/components/topic-detail/challenge-engine";
 import { SchematicThumb } from "@/components/schematic-thumb";
 import { Progress, Ring } from "@/components/ui/progress";
 import { useLanguage } from "@/components/language-provider";
+import {
+  useTopics,
+  useOptionalTopic,
+  useChallenge,
+} from "@/lib/i18n/content/use-content";
+import { TOPICS } from "@/lib/data/topics";
 import { useAuth } from "@/components/auth-provider";
 import { cn } from "@/lib/utils";
+
+function challengeTypeLabel(
+  type: string,
+  t: ReturnType<typeof useLanguage>["t"]
+): string {
+  if (type === "ordering") return t.challenge.typeOrdering;
+  if (type === "drag-drop") return t.challenge.typeDragDrop;
+  return t.challenge.typeMultipleChoice;
+}
 
 export function ChallengesBoard() {
   const reduce = useReducedMotion();
   const { t } = useLanguage();
+  const topics = useTopics(TOPICS);
+  const topicBySlug = React.useMemo(
+    () => new Map(topics.map((topic) => [topic.slug, topic])),
+    [topics]
+  );
   const { user } = useAuth();
   const daily = dailyChallenges();
   const topicChallenges = CHALLENGES.filter((c) => c.bucket === "topic");
@@ -79,7 +98,7 @@ export function ChallengesBoard() {
           {/* daily list */}
           <div className="flex flex-col gap-2">
             {daily.map((c, i) => {
-              const topic = getTopic(c.topicSlug);
+              const topic = topicBySlug.get(c.topicSlug);
               const isActive = i === activeDaily;
               return (
                 <button
@@ -197,7 +216,7 @@ export function ChallengesBoard() {
 
         <div className="no-scrollbar mt-5 flex gap-2 overflow-x-auto pb-1">
           {subjects.map((s) => {
-            const topic = getTopic(s);
+            const topic = topicBySlug.get(s);
             const active = filter === s;
             return (
               <button
@@ -220,7 +239,7 @@ export function ChallengesBoard() {
 
         <div className="mt-6 grid gap-5 lg:grid-cols-2">
           {visible.map((c) => {
-            const topic = getTopic(c.topicSlug);
+            const topic = topicBySlug.get(c.topicSlug);
             const correct = isCorrect(c.id);
             return (
               <div key={c.id} className="relative">
@@ -238,8 +257,8 @@ export function ChallengesBoard() {
                       {topic?.title ?? c.topicSlug}
                     </Link>
                     <p className="mt-0.5 text-2xs text-ink-muted">
-                      {topic ? DIFFICULTY_LABEL[topic.difficultyDefault] : ""} ·{" "}
-                      {c.type.replace("-", " ")}
+                      {topic ? t.difficulty[topic.difficultyDefault - 1] : ""} ·{" "}
+                      {challengeTypeLabel(c.type, t)}
                     </p>
                   </div>
                   <span

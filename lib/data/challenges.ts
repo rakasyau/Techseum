@@ -206,7 +206,25 @@ export const CHALLENGES: Challenge[] = [
     answer: ["low-power sensor hub", "sensor fusion on the SoC", "dedicated video encoder", "the cellular radio"],
     explanation:
       "Power efficiency decides placement. Step counting runs continuously on a tiny hub; sensor fusion and video encoding need real compute; messages arrive on the radio and wake the system only at the end.",
+  },  {
+    id: "cache-latency-order",
+    topicSlug: "cache",
+    type: "ordering",
+    question: "A read misses L1. Put the places the request checks next in order.",
+    hint: "It works outward from the core, and every level is larger and slower.",
+    xpReward: 25,
+    bucket: "topic",
+    options: [
+      { id: "l2", label: "L2 cache", detail: "Private to the core, larger and slower than L1." },
+      { id: "l3", label: "L3 cache", detail: "Shared by every core, the last stop on the chip." },
+      { id: "ram", label: "Main memory", detail: "Off the chip, around a hundred cycles away." },
+      { id: "fill", label: "Fill the line back up", detail: "Copy the 64-byte line into every level on the way home." },
+    ],
+    answer: ["l2", "l3", "ram", "fill"],
+    explanation:
+      "A miss falls outward from the core through L2 and L3, and only then to main memory. When memory answers it returns a whole cache line, which is copied into every level on the way back so the next access to that region is a hit.",
   },
+
 ];
 
 export function challengesForTopic(slug: string): Challenge[] {

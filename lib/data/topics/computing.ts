@@ -14,7 +14,7 @@ export const computingTopics: Topic[] = [
     trending: true,
     glyph: "cpu",
     learningPath: "Understanding the Internet",
-    relatedTopics: ["ram", "gpu", "ssd"],
+    relatedTopics: ["ram", "gpu", "cache"],
     levels: [
       {
         level: 1,
@@ -205,7 +205,7 @@ export const computingTopics: Topic[] = [
     tags: ["DRAM", "capacitors", "memory controller", "refresh"],
     trending: true,
     glyph: "ram",
-    relatedTopics: ["cpu", "ssd"],
+    relatedTopics: ["cpu", "cache", "ssd"],
     levels: [
       {
         level: 1,
@@ -336,7 +336,7 @@ export const computingTopics: Topic[] = [
     tags: ["NAND flash", "FTL", "wear levelling", "NVMe"],
     featured: true,
     glyph: "ssd",
-    relatedTopics: ["ram", "cpu"],
+    relatedTopics: ["ram", "cache", "cpu"],
     levels: [
       {
         level: 1,

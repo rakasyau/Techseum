@@ -9,6 +9,7 @@ import { CATEGORY_MAP } from "@/lib/data/categories";
 import { ModelGlyph } from "./glyphs";
 import { cn } from "@/lib/utils";
 import { useLanguage, interpolate } from "./language-provider";
+import { useTopics } from "@/lib/i18n/content/use-content";
 
 export function SearchCommand({
   open,
@@ -19,20 +20,21 @@ export function SearchCommand({
 }) {
   const router = useRouter();
   const { t } = useLanguage();
+  const topics = useTopics(TOPICS);
   const [query, setQuery] = React.useState("");
   const [cursor, setCursor] = React.useState(0);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const results = React.useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return TOPICS.slice(0, 6);
-    return TOPICS.filter((t) =>
+    if (!q) return topics.slice(0, 6);
+    return topics.filter((t) =>
       [t.title, t.summary, t.category, ...t.tags]
         .join(" ")
         .toLowerCase()
         .includes(q)
     ).slice(0, 8);
-  }, [query]);
+  }, [query, topics]);
 
   React.useEffect(() => {
     if (open) {
@@ -114,7 +116,7 @@ export function SearchCommand({
                 </div>
               ) : (
                 results.map((topic, i) => {
-                  const cat = CATEGORY_MAP[topic.category as keyof typeof CATEGORY_MAP];
+                  const cat = t.wings[topic.category];
                   return (
                     <button
                       key={topic.slug}

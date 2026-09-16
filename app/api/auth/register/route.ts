@@ -4,6 +4,8 @@ import { User, toPublicUser } from "@/lib/models/user";
 import { Subscriber } from "@/lib/models/subscriber";
 import { hashPassword, startSession } from "@/lib/auth";
 import { registerSchema, firstIssue } from "@/lib/validation";
+import { getRequestLocale } from "@/lib/i18n/server";
+import { msg, translateValidation, translatePassword } from "@/lib/i18n/api-messages";
 import { validatePassword } from "@/lib/password";
 import { sendAccountWelcomeEmail } from "@/lib/resend";
 
@@ -11,30 +13,37 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  const locale = getRequestLocale(request);
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    return NextResponse.json({ error: msg("invalidBody", locale) }, { status: 400 });
   }
 
   const parsed = registerSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: firstIssue(parsed.error) }, { status: 400 });
+    return NextResponse.json(
+      { error: translateValidation(firstIssue(parsed.error), locale) },
+      { status: 400 }
+    );
   }
 
   const { email, username, displayName, password } = parsed.data;
 
   const passwordIssue = validatePassword(password);
   if (passwordIssue) {
-    return NextResponse.json({ error: passwordIssue.message }, { status: 400 });
+    return NextResponse.json(
+      { error: translatePassword(passwordIssue.code, locale) },
+      { status: 400 }
+    );
   }
 
   try {
     await connectToDatabase();
   } catch {
     return NextResponse.json(
-      { error: "The service is temporarily unavailable. Please try again." },
+      { error: msg("serviceUnavailable", locale) },
       { status: 503 }
     );
   }
@@ -46,9 +55,9 @@ export async function POST(request: Request) {
     .lean();
 
   if (existing) {
-    const field = existing.email === email ? "email address" : "username";
+    const field = existing.email === email ? "emailField" : "usernameField";
     return NextResponse.json(
-      { error: `That ${field} is already registered.` },
+      { error: msg("alreadyRegistered", locale).replace("{field}", msg(field, locale)) },
       { status: 409 }
     );
   }

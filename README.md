@@ -126,8 +126,14 @@ NEWSLETTER_FROM to start reaching real subscribers.
 
 ## Languages
 
-The interface ships in **English** and **Bahasa Indonesia**. Switch instantly from
-the header; your choice is saved to your account and applied on your next visit.
+The interface **and every exhibit** ship in **English** and **Bahasa Indonesia**.
+Switch instantly from the header; your choice is saved to your account and
+applied on your next visit.
+
+Exhibit prose is authored once in English (`lib/data/`) and translated through
+overlays in `lib/i18n/content/` — one file per exhibit plus the challenges and
+scenarios. The merge keeps ids, geometry and answer keys from the source, so a
+partially translated exhibit still renders coherently rather than blank.
 
 ## Tech stack
 

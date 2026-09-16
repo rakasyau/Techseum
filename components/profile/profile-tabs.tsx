@@ -4,13 +4,14 @@ import * as React from "react";
 import { Award, BookmarkX, Check } from "lucide-react";
 import type { Badge as BadgeType } from "@/lib/types";
 import { BADGES } from "@/lib/data/community";
-import { getTopic } from "@/lib/data/topics";
-import { CATEGORIES, CATEGORY_MAP } from "@/lib/data/categories";
+import { TOPICS } from "@/lib/data/topics";
+import { useTopics } from "@/lib/i18n/content/use-content";
+import { CATEGORIES } from "@/lib/data/categories";
 import { cn, formatNumber } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
 import { TopicCard } from "@/components/topic-card";
 import { SchematicThumb } from "@/components/schematic-thumb";
-import { useLanguage } from "@/components/language-provider";
+import { useLanguage, interpolate } from "@/components/language-provider";
 import { useAuth } from "@/components/auth-provider";
 /*
  * Profile tabs, all reading from the signed-in session rather than seeded
@@ -20,6 +21,11 @@ import { useAuth } from "@/components/auth-provider";
 export function ProgressTab() {
   const { t } = useLanguage();
   const { user } = useAuth();
+  const topics = useTopics(TOPICS);
+  const topicBySlug = React.useMemo(
+    () => new Map(topics.map((topic) => [topic.slug, topic])),
+    [topics]
+  );
   if (!user) return <SignedOutNotice />;
 
   const completed = user.progress.filter((p) => p.status === "completed");
@@ -35,7 +41,7 @@ export function ProgressTab() {
           {CATEGORIES.map((cat) => {
             const total = 3;
             const done = completed.filter((p) => {
-              const topic = getTopic(p.topicSlug);
+              const topic = topicBySlug.get(p.topicSlug);
               return topic?.category === cat.id;
             }).length;
             const pct = Math.round((done / total) * 100);
@@ -50,7 +56,7 @@ export function ProgressTab() {
                       {cat.id.slice(0, 3)}
                     </span>
                     <div>
-                      <p className="text-[14px] font-medium">{cat.label}</p>
+                      <p className="text-[14px] font-medium">{t.wings[cat.id].label}</p>
                       <p className="text-2xs text-ink-muted">
                         {done} / {total} {t.profile.exhibitsFinished}
                       </p>
@@ -75,7 +81,7 @@ export function ProgressTab() {
             </h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {inProgress
-                .map((p) => getTopic(p.topicSlug))
+                .map((p) => topicBySlug.get(p.topicSlug))
                 .filter((topic): topic is NonNullable<typeof topic> =>
                   Boolean(topic)
                 )
@@ -97,7 +103,7 @@ export function ProgressTab() {
           </p>
           <ul className="mt-4 space-y-2.5">
             {completed.map((p) => {
-              const topic = getTopic(p.topicSlug);
+              const topic = topicBySlug.get(p.topicSlug);
               if (!topic) return null;
               return (
                 <li key={p.topicSlug}>
@@ -166,6 +172,10 @@ export function BadgesTab() {
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {BADGES.map((badge: BadgeType) => {
           const earned = earnedCodes.includes(badge.code);
+          const copy = t.badges[badge.code];
+          const name = copy?.name ?? badge.name;
+          const description = copy?.description ?? badge.description;
+          const criteria = copy?.criteria ?? badge.criteria;
           return (
             <div
               key={badge.code}
@@ -197,13 +207,13 @@ export function BadgesTab() {
                 )}
               </div>
               <h3 className="mt-4 font-display text-[15px] font-semibold tracking-[-0.015em]">
-                {badge.name}
+                {name}
               </h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-muted">
-                {badge.description}
+                {description}
               </p>
               {!earned ? (
-                <p className="mt-3 text-2xs text-ink-faint">{badge.criteria}</p>
+                <p className="mt-3 text-2xs text-ink-faint">{criteria}</p>
               ) : null}
             </div>
           );
@@ -216,6 +226,11 @@ export function BadgesTab() {
 export function BookmarksTab() {
   const { t } = useLanguage();
   const { user } = useAuth();
+  const topics = useTopics(TOPICS);
+  const topicBySlug = React.useMemo(
+    () => new Map(topics.map((topic) => [topic.slug, topic])),
+    [topics]
+  );
   const [removed, setRemoved] = React.useState<string[]>([]);
 
   if (!user) return <SignedOutNotice />;
@@ -267,7 +282,7 @@ export function BookmarksTab() {
       </p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {bookmarks.map((slug) => {
-          const topic = getTopic(slug);
+          const topic = topicBySlug.get(slug);
           if (!topic) return null;
           return (
             <div key={slug} className="relative">
@@ -291,6 +306,11 @@ export function BookmarksTab() {
 export function HistoryTab() {
   const { t, locale } = useLanguage();
   const { user } = useAuth();
+  const topics = useTopics(TOPICS);
+  const topicBySlug = React.useMemo(
+    () => new Map(topics.map((topic) => [topic.slug, topic])),
+    [topics]
+  );
   if (!user) return <SignedOutNotice />;
 
   const events = user.events ?? [];
@@ -312,7 +332,7 @@ export function HistoryTab() {
       ) : (
         <ol className="mt-6 divide-y divide-line overflow-hidden rounded-2xl border border-line bg-paper">
           {events.map((event, i) => {
-            const topic = event.topicSlug ? getTopic(event.topicSlug) : null;
+            const topic = event.topicSlug ? topicBySlug.get(event.topicSlug) : null;
             const when = new Date(event.createdAt).toLocaleDateString(
               locale === "id" ? "id-ID" : "en-GB",
               { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }
@@ -329,7 +349,7 @@ export function HistoryTab() {
                 />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[13.5px] font-medium">
-                    {event.label ?? event.kind}
+                    {eventLabel(event, topic, t)}
                   </p>
                   {topic ? (
                     <a
@@ -351,6 +371,35 @@ export function HistoryTab() {
       )}
     </div>
   );
+}
+
+/*
+ * The History feed is stored as structured events (kind, topic, level, and for
+ * challenges an id), so its text is composed here in the visitor's language
+ * rather than frozen into the database at award time.
+ */
+function eventLabel(
+  event: { kind: string; label?: string; level?: number; challengeId?: string },
+  topic: { title: string } | null | undefined,
+  t: ReturnType<typeof useLanguage>["t"]
+): string {
+  const title = topic?.title;
+  switch (event.kind) {
+    case "level-read":
+      return title && event.level
+        ? interpolate(t.profile.eventReadLevel, { title, level: event.level })
+        : event.label ?? event.kind;
+    case "topic-complete":
+      return title
+        ? interpolate(t.profile.eventCompleted, { title })
+        : event.label ?? event.kind;
+    case "challenge":
+      return t.profile.eventChallenge;
+    case "daily":
+      return t.profile.eventDaily;
+    default:
+      return event.label ?? event.kind;
+  }
 }
 
 function SignedOutNotice() {

@@ -22,6 +22,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { ScenarioStep } from "@/lib/types";
+import { useLanguage } from "@/components/language-provider";
 
 const ICONS: Record<string, LucideIcon> = {
   Aperture,
@@ -79,6 +80,7 @@ export function ScenarioTimeline({ steps }: { steps: ScenarioStep[] }) {
 
 function ScenarioRow({ step, index }: { step: ScenarioStep; index: number }) {
   const reduce = useReducedMotion();
+  const { t } = useLanguage();
   const Icon = ICONS[step.icon] ?? Cpu;
 
   return (
@@ -99,7 +101,7 @@ function ScenarioRow({ step, index }: { step: ScenarioStep; index: number }) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-ink">
-              Step {String(step.order).padStart(2, "0")}
+              {t.topic.step} {String(step.order).padStart(2, "0")}
             </span>
             {step.latency ? (
               <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-ink-muted">

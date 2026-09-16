@@ -6,7 +6,7 @@ import { FeaturedRail } from "@/components/home/featured-exhibit";
 import { DiscoverGrid } from "@/components/home/discover-grid";
 import { HomeBoards } from "@/components/home/home-boards";
 import { useLanguage } from "@/components/language-provider";
-import { TOPICS } from "@/lib/data/topics";
+import { FEATURED_TOPICS, TOPICS } from "@/lib/data/topics";
 
 /*
  * The translated editorial sections of the homepage. Kept as one client
@@ -26,7 +26,7 @@ export function FeaturedSection() {
         />
       </Reveal>
       <div className="mt-8">
-        <FeaturedRail slugs={["cpu", "wifi", "camera", "ssd", "neural-net"]} />
+        <FeaturedRail slugs={FEATURED_TOPICS.map((t) => t.slug)} />
       </div>
     </section>
   );

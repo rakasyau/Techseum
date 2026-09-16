@@ -15,6 +15,7 @@ export const id: Dict = {
     profile: "Profil",
     language: "Bahasa",
     theme: "Tema",
+    toggleMenu: "Buka menu",
   },
   common: {
     explore: "Jelajahi",
@@ -37,6 +38,53 @@ export const id: Dict = {
     startExploring: "Mulai jelajah",
     viewAll: "Lihat semua",
     skipToContent: "Lewati ke konten",
+    exhibits: "materi",
+    sort: "urutkan",
+    min: "menit",
+  },
+  difficulty: ["Sederhana", "Pemula", "Teknis", "Menyelami"],
+  wings: {
+    computing: {
+      label: "Komputasi",
+      blurb: "Silikon yang mengubah listrik menjadi pemikiran.",
+    },
+    networking: {
+      label: "Jaringan",
+      blurb: "Bagaimana sinyal tak terlihat menemukan jalannya antar mesin.",
+    },
+    electronics: {
+      label: "Elektronika",
+      blurb: "Rangkaian, sensor, dan fisika di baliknya.",
+    },
+    everyday: {
+      label: "Teknologi Sehari-hari",
+      blurb: "Benda di kantongmu dan di atas mejamu.",
+    },
+    modern: {
+      label: "Teknologi Modern",
+      blurb: "Pembelajaran mesin, cloud, dan apa yang berikutnya.",
+    },
+  },
+  explore: {
+    searchPlaceholder: "Cari materi, konsep, tag…",
+    searchLabel: "Cari materi",
+    clearSearch: "Hapus pencarian",
+    sortLabel: "Urutkan",
+    mostExplored: "Paling dijelajahi",
+    easiestFirst: "Termudah dulu",
+    aToZ: "A–Z",
+    wing: "Sayap",
+    allWings: "Semua",
+    nothingMatches: "Tidak ada yang cocok dengan filter itu",
+    nothingMatchesLead:
+      "Coba pencarian yang lebih luas, atau hapus filter level — materi teknis berada di level 3 dan 4.",
+    clearEverything: "Hapus semua",
+    clearFilters: "Hapus {count} filter",
+    allExhibits: "Semua materi",
+    noExhibitsWing: "Belum ada materi di sayap ini",
+    noExhibitsWingLead:
+      "Sedang kami bangun. Coba sayap lain, atau telusuri semuanya.",
+    clearFilter: "Hapus filter",
   },
   home: {
     heroTitle1: "Pahami cara",
@@ -74,6 +122,40 @@ export const id: Dict = {
     builtWith: "Dibangun dengan",
     liveActivity: "pengguna terdaftar",
     noActivity: "Jadilah yang pertama mendaftar",
+    heroFeatured: "Unggulan",
+    heroCpuTitle: "Bagaimana Cara Kerja CPU?",
+    heroCpuMeta: "Komputasi \u00b7 4 level",
+  },
+  featured: {
+    eyebrow: "Materi unggulan",
+    depthLevels: "Tingkat kedalaman",
+    quickestRead: "Bacaan tercepat",
+    simulationSteps: "Langkah simulasi",
+    min: "menit",
+    open: "Buka materi",
+    takeChallenge: "Ikuti tantangan",
+  },
+  method: {
+    step1Title: "Pilih kedalaman",
+    step1Body:
+      "Setiap materi menawarkan empat level, dari pengantar berbahasa sehari-hari sampai pembahasan mendalam tentang batasan rekayasa yang nyata.",
+    step2Title: "Putar di tanganmu",
+    step2Body:
+      "Beralih antara diagram 2D bertahap dan model 3D yang bisa dijelajahi. Pilih bagian mana pun untuk membaca fungsinya.",
+    step3Title: "Rusak dengan sengaja",
+    step3Body:
+      "Buka tampilan terbongkar, jalankan simulasi 4x, ubah nilai di meja lab dan lihat apa yang terjadi.",
+    step4Title: "Buktikan kamu paham",
+    step4Body:
+      "Tantangan singkat di akhir setiap materi, bernilai XP dan kemajuan menuju lencana. Tanpa nilai, tanpa batas waktu.",
+    cta: "Lihat di materi CPU",
+  },
+  card: {
+    levels: "level",
+    explorers: "penjelajah",
+    explore: "Jelajahi",
+    bookmarkAdd: "Tandai {title}",
+    bookmarkRemove: "Hapus {title} dari tanda",
   },
   auth: {
     signInTitle: "Selamat datang kembali",
@@ -138,6 +220,7 @@ export const id: Dict = {
     relatedTitle: "Lanjutkan dari sini",
     relatedLead: "Materi ini langsung melanjutkan apa yang baru kamu baca.",
     read: "Baca",
+    breadcrumb: "Remah",
     levelNames: ["Sederhana", "Pemula", "Teknis", "Menyelami"],
     levelHints: [
       "Bahasa sehari-hari, tanpa istilah teknis",
@@ -162,12 +245,19 @@ export const id: Dict = {
   challenge: {
     correct: "Benar",
     notQuite: "Belum tepat",
+    typeOrdering: "Urutan",
+    typeMultipleChoice: "Pilihan ganda",
+    typeDragDrop: "Pengelompokan",
+    correctXp: "Benar \u2014 +{xp} XP",
     checkAnswer: "Periksa jawaban",
     tryAgain: "Coba lagi",
     chooseBest: "Pilih jawaban terbaik",
     putInOrder: "Susun langkahnya dengan urutan benar",
     sortItems: "Kelompokkan setiap item ke tempatnya",
     hint: "Petunjuk",
+    moveUp: "Pindahkan {label} ke atas",
+    moveDown: "Pindahkan {label} ke bawah",
+    to: "ke",
     attempts: "percobaan",
     saved: "Tersimpan ke progresmu",
     daily: "Tantangan harian",
@@ -248,6 +338,10 @@ export const id: Dict = {
     cleanSignal: "Sinyal bersih",
     someGrain: "Sedikit grain",
     visibleNoise: "Noise terlihat",
+    circuitLabel:
+      "Rangkaian baterai, resistor dan LED dengan aliran arus yang divisualisasikan",
+    resetTopology: "Atur ulang topologi",
+    topologyLabel: "Topologi jaringan dengan jalur paket yang dirutekan",
   },
   labs: {
     electronicsTitle: "Meja Elektronika",
@@ -314,9 +408,14 @@ export const id: Dict = {
     reducedMotionLead:
       "Menghapus animasi masuk dan gerakan berkelanjutan. Pengaturan sistemmu selalu dihormati juga.",
     joined: "Bergabung",
+    eventReadLevel: "Membaca {title}, level {level}",
+    eventCompleted: "Menyelesaikan {title}",
+    eventChallenge: "Menjawab tantangan",
+    eventDaily: "Tantangan harian",
     publicNotice:
       "Kamu melihat profil publik. Progres, lencana dan tanda pengguna lain bersifat privat.",
     viewYours: "Lihat milikmu",
+    you: "kamu",
   },
   about: {
     title: "Membaca tentang mesin tidak sama dengan memahaminya.",
@@ -448,6 +547,58 @@ export const id: Dict = {
     signIn: "Saya sudah punya akun",
     browseFree: "Jelajahi Cara Kerjanya, Lab dan Tentang tanpa akun",
     lockNote: "Materi, tantangan dan papan peringkat memerlukan akun.",
+  },
+  badges: {
+    "first-explorer": {
+      name: "Penjelajah Pertama",
+      description: "Menyelesaikan materi pertamamu.",
+      criteria: "Selesaikan semua level di materi mana pun.",
+    },
+    "cpu-master": {
+      name: "Ahli CPU",
+      description: "Menuntaskan semua level How Does a CPU Work?",
+      criteria: "Selesaikan keempat level dan lulus tantangan CPU.",
+    },
+    "seven-day-streak": {
+      name: "Rentetan Tujuh Hari",
+      description: "Belajar sesuatu selama tujuh hari berturut-turut.",
+      criteria: "Jaga rentetan aktivitas 7 hari.",
+    },
+    "deep-diver": {
+      name: "Penyelam Dalam",
+      description: "Membaca level Menyelami dan mengerjakan tantangannya.",
+      criteria: "Selesaikan level 4 mana pun dan jawab tantangannya.",
+    },
+    "challenge-chaser": {
+      name: "Pemburu Tantangan",
+      description: "Menyelesaikan lima materi dari awal sampai akhir.",
+      criteria: "Selesaikan lima materi.",
+    },
+    "category-champion-computing": {
+      name: "Juara Sayap: Komputasi",
+      description: "Menyelesaikan semua materi di sayap Komputasi.",
+      criteria: "Selesaikan semua topik Komputasi.",
+    },
+    "category-champion-networking": {
+      name: "Juara Sayap: Jaringan",
+      description: "Menyelesaikan semua materi di sayap Jaringan.",
+      criteria: "Selesaikan semua topik Jaringan.",
+    },
+    "category-champion-electronics": {
+      name: "Juara Sayap: Elektronika",
+      description: "Menyelesaikan semua materi di sayap Elektronika.",
+      criteria: "Selesaikan semua topik Elektronika.",
+    },
+    "category-champion-everyday": {
+      name: "Juara Sayap: Teknologi Sehari-hari",
+      description: "Menyelesaikan semua materi di sayap Teknologi Sehari-hari.",
+      criteria: "Selesaikan semua topik Teknologi Sehari-hari.",
+    },
+    "category-champion-modern": {
+      name: "Juara Sayap: Teknologi Modern",
+      description: "Menyelesaikan semua materi di sayap Teknologi Modern.",
+      criteria: "Selesaikan semua topik Teknologi Modern.",
+    },
   },
   errors: {
     generic: "Terjadi kesalahan. Coba lagi.",

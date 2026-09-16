@@ -7,6 +7,7 @@ import { Boxes, Grid2x2, Info, Layers } from "lucide-react";
 import type { Topic } from "@/lib/types";
 import { Simulation2D } from "@/components/simulations-2d/simulation-2d";
 import { useLanguage } from "@/components/language-provider";
+import { useTopic } from "@/lib/i18n/content/use-content";
 import { cn } from "@/lib/utils";
 
 /* three.js is only ever downloaded by someone who actually chooses the 3D
@@ -25,8 +26,9 @@ type Mode = "2d" | "3d";
 /* The simulation switcher. 3D is lazy-mounted on first selection so the
    WebGL bundle never loads for someone who only reads the diagram — the perf
    guardrail the brief calls for. */
-export function SimulationStudio({ topic }: { topic: Topic }) {
+export function SimulationStudio({ topic: source }: { topic: Topic }) {
   const { t } = useLanguage();
+  const topic = useTopic(source);
   const [mode, setMode] = React.useState<Mode>("2d");
   const [hasMounted3D, setHasMounted3D] = React.useState(false);
   const [webglOk, setWebglOk] = React.useState(true);

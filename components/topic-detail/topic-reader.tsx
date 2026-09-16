@@ -12,16 +12,18 @@ import { cn } from "@/lib/utils";
 import { challengesForTopic } from "@/lib/data/challenges";
 import { buildQuestions } from "@/lib/ask-why-questions";
 import { useLanguage } from "@/components/language-provider";
+import { useTopic } from "@/lib/i18n/content/use-content";
 import { useProgress, topicProgress } from "@/lib/use-progress";
 import { useExplorerCount } from "@/lib/use-stats";
 
-export function TopicReader({ topic }: { topic: Topic }) {
+export function TopicReader({ topic: source }: { topic: Topic }) {
   const { t } = useLanguage();
+  const topic = useTopic(source);
   const { user, markLevelRead } = useProgress();
   const explorers = useExplorerCount(topic.slug);
 
   const [level, setLevel] = React.useState<number>(
-    user?.preferences.defaultLevel ?? topic.difficultyDefault
+    user?.preferences.defaultLevel ?? source.difficultyDefault
   );
   const reduce = useReducedMotion();
 

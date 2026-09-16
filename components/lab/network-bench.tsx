@@ -177,7 +177,7 @@ export function NetworkBench() {
             <button
               type="button"
               onClick={reset}
-              aria-label="Reset topology"
+              aria-label={t.lab.resetTopology}
               className="grid h-8 w-8 place-items-center rounded-full border border-line text-ink-muted transition-colors hover:border-ink hover:text-ink"
             >
               <RotateCcw size={13} />
@@ -200,7 +200,7 @@ export function NetworkBench() {
             viewBox="0 0 640 320"
             className="relative block w-full min-w-[560px]"
             role="img"
-            aria-label="Network topology with the routed packet path"
+            aria-label={t.lab.topologyLabel}
           >
             {links.map(([a, b], i) => {
               const na = byId[a];
