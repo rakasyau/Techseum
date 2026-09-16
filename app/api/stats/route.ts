@@ -17,12 +17,12 @@ export async function GET() {
   try {
     await connectToDatabase();
 
-    const [learners, awarded, topTopics] = await Promise.all([
+    const [learners, awarded, byTopic] = await Promise.all([
       User.countDocuments({}),
       User.aggregate<{ total: number }>([
         { $group: { _id: null, total: { $sum: "$xp" } } },
       ]),
-      // "Most explored" = how many distinct learners have actually opened each
+      // "Explored" = how many distinct learners have actually opened each
       // exhibit. Derived from real progress records, not a seeded counter.
       User.aggregate<{ _id: string; explorers: number }>([
         { $unwind: "$progress" },
@@ -33,12 +33,11 @@ export async function GET() {
           },
         },
         { $sort: { explorers: -1 } },
-        { $limit: 8 },
       ]),
     ]);
 
     // Attach display fields, and keep only slugs that exist in the catalogue.
-    const enriched = topTopics
+    const allTopics = byTopic
       .map((row) => {
         const topic = TOPICS.find((t) => t.slug === row._id);
         if (!topic) return null;
@@ -52,13 +51,22 @@ export async function GET() {
       })
       .filter((row): row is NonNullable<typeof row> => row !== null);
 
-    const maxExplorers = enriched[0]?.explorers ?? 0;
+    const topTopics = allTopics.slice(0, 8);
+    const maxExplorers = topTopics[0]?.explorers ?? 0;
+
+    // Per-exhibit counts for every exhibit that has been opened. The UI reads
+    // this to show real numbers on cards and the exhibit page, and treats a
+    // missing slug as "no one yet" rather than inventing a figure.
+    const explorerCounts = Object.fromEntries(
+      allTopics.map((row) => [row.slug, row.explorers])
+    );
 
     return NextResponse.json({
       learners,
       xpAwarded: awarded[0]?.total ?? 0,
-      topics: enriched,
+      topics: topTopics,
       maxExplorers,
+      explorerCounts,
     });
   } catch {
     return NextResponse.json(
@@ -67,6 +75,7 @@ export async function GET() {
         xpAwarded: null,
         topics: [],
         maxExplorers: 0,
+        explorerCounts: {},
         error: "Statistics unavailable.",
       },
       { status: 503 }

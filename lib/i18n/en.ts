@@ -69,7 +69,7 @@ export const en: Dict = {
       "Techseum is built on one idea: you understand a system when you can watch it work, take it apart, and change one variable at a time to see why it matters.",
     ctaTitle: "What do you want to understand today?",
     ctaLead:
-      "Twelve exhibits, four levels each, and a lab bench for every idea that is easier to feel than to read.",
+      "{count} exhibits, four levels each, and a lab bench for every idea that is easier to feel than to read.",
     tryLab: "Try a lab bench",
     builtWith: "Built with",
     liveActivity: "registered learners",
@@ -138,17 +138,24 @@ export const en: Dict = {
     relatedTitle: "Continue from here",
     relatedLead: "These exhibits build directly on what you just read.",
     read: "Read",
+    levelNames: ["Simple", "Beginner", "Technical", "Deep Dive"],
+    levelHints: [
+      "Plain language, no jargon",
+      "The parts and how they fit",
+      "The engineering constraints",
+      "Where the real problems live",
+    ],
   },
   ai: {
     title: "Ask about this exhibit",
-    subtitle: "Answers grounded in this exhibit, at your chosen depth",
+    subtitle: "Answers about this exhibit, at your chosen depth",
     open: "Ask a question",
     placeholder: "Ask a follow-up question…",
     send: "Send question",
     suggestions: "Suggested questions",
     thinking: "Thinking…",
     disclaimer:
-      "Answers are generated from this exhibit's content. They can be incomplete — check anything important.",
+      "Answers are written on the spot from general knowledge about this subject. They can be incomplete — check anything important.",
     limitReached: "Question limit reached for now. Please try again shortly.",
     unavailable: "The assistant is unavailable right now.",
   },
@@ -331,7 +338,7 @@ export const en: Dict = {
       "Accounts and sessions, XP, badges, streaks, bookmarks, the leaderboard, and every diagram, simulation and lab calculation.",
     generated: "Generated on demand",
     generatedLead:
-      "The assistant's answers are produced from each exhibit's own content when you ask.",
+      "The assistant's answers are written when you ask, using general knowledge about the exhibit's subject, kept to its scope and your chosen depth.",
     notIncluded: "Not included yet",
     notIncludedLead:
       "Email confirmation and password reset are not wired up, and level 4 copy has not had subject-matter review.",
@@ -422,7 +429,7 @@ export const en: Dict = {
   pages: {
     exploreTitle: "The collection",
     exploreLead:
-      "Twelve exhibits across five wings. Each one opens with a plain-language answer, then goes as deep as you want to follow it.",
+      "{count} exhibits across five wings. Each one opens with a plain-language answer, then goes as deep as you want to follow it.",
     challengeTitle: "Challenges",
     challengeLead:
       "Short exercises that check whether the idea landed. Getting one wrong is useful here, because the explanation is the point.",

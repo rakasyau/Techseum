@@ -9,6 +9,8 @@
  * using the `html` field these functions return.
  */
 
+import { TOPICS } from "./data/topics";
+
 const INK = "#0A0A0A";
 const MUTED = "#6B6B70";
 const LINE = "#ECECEC";
@@ -158,7 +160,7 @@ export function accountWelcomeEmail(
           </p>
           <p style="margin:0 0 8px;font-size:14px;line-height:1.6;">
             <span style="color:${INK};font-weight:600;">1. Pick an exhibit.</span>
-            <span style="color:${MUTED};">Twelve of them, across five wings of technology.</span>
+            <span style="color:${MUTED};">${TOPICS.length} of them, across five wings of technology.</span>
           </p>
           <p style="margin:0 0 8px;font-size:14px;line-height:1.6;">
             <span style="color:${INK};font-weight:600;">2. Choose a depth.</span>
@@ -208,7 +210,7 @@ export function accountWelcomeEmail(
       "bookmarks are now saved to it.",
       "",
       "How to use the museum:",
-      "1. Pick an exhibit. Twelve of them, across five wings.",
+      "1. Pick an exhibit. " + TOPICS.length + " of them, across five wings.",
       "2. Choose a depth, from plain language to deep engineering.",
       "3. Take it apart: drive the diagram, orbit the 3D model, use a lab bench.",
       "4. Prove you got it with a short challenge, worth XP.",

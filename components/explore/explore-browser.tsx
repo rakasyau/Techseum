@@ -11,6 +11,7 @@ import type { Difficulty, Topic } from "@/lib/types";
 import { DIFFICULTY_LABEL } from "@/lib/types";
 import { CATEGORIES, CATEGORY_MAP } from "@/lib/data/categories";
 import { TopicCard } from "@/components/topic-card";
+import { useSiteStats } from "@/lib/use-stats";
 import { cn } from "@/lib/utils";
 
 type SortKey = "popular" | "difficulty" | "title";
@@ -30,6 +31,11 @@ export function ExploreBrowser({
   );
   const [levels, setLevels] = React.useState<Difficulty[]>([]);
   const [sort, setSort] = React.useState<SortKey>("popular");
+  const stats = useSiteStats();
+  const explorerCounts = React.useMemo(
+    () => stats?.explorerCounts ?? {},
+    [stats]
+  );
 
   const results = React.useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -43,12 +49,15 @@ export function ExploreBrowser({
         .includes(q);
     });
     return [...out].sort((a, b) => {
-      if (sort === "popular") return b.explorerCount - a.explorerCount;
+      if (sort === "popular")
+        return (
+          (explorerCounts[b.slug] ?? 0) - (explorerCounts[a.slug] ?? 0)
+        );
       if (sort === "difficulty")
         return a.difficultyDefault - b.difficultyDefault;
       return a.title.localeCompare(b.title);
     });
-  }, [topics, query, category, levels, sort]);
+  }, [topics, query, category, levels, sort, explorerCounts]);
 
   const activeFilters =
     (category !== "all" ? 1 : 0) + levels.length + (query ? 1 : 0);

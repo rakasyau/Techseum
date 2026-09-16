@@ -124,8 +124,6 @@ export interface Topic {
   summary: string;
   category: CategoryId;
   difficultyDefault: Difficulty;
-  explorerCount: number;
-  rating: number;
   tags: string[];
   featured?: boolean;
   trending?: boolean;

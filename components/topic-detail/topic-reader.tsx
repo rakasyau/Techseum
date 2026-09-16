@@ -4,7 +4,6 @@ import * as React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Check, Clock, Quote } from "lucide-react";
 import type { Topic } from "@/lib/types";
-import { DIFFICULTY_LABEL } from "@/lib/types";
 import { LevelContent } from "./level-content";
 import { ChallengeEngine } from "./challenge-engine";
 import { ExhibitAssistant } from "./exhibit-assistant";
@@ -14,17 +13,12 @@ import { challengesForTopic } from "@/lib/data/challenges";
 import { buildQuestions } from "@/lib/ask-why-questions";
 import { useLanguage } from "@/components/language-provider";
 import { useProgress, topicProgress } from "@/lib/use-progress";
-
-const LEVEL_HINT: Record<number, string> = {
-  1: "Plain language, no jargon",
-  2: "The parts and how they fit",
-  3: "The engineering constraints",
-  4: "Where the real problems live",
-};
+import { useExplorerCount } from "@/lib/use-stats";
 
 export function TopicReader({ topic }: { topic: Topic }) {
   const { t } = useLanguage();
   const { user, markLevelRead } = useProgress();
+  const explorers = useExplorerCount(topic.slug);
 
   const [level, setLevel] = React.useState<number>(
     user?.preferences.defaultLevel ?? topic.difficultyDefault
@@ -92,7 +86,7 @@ export function TopicReader({ topic }: { topic: Topic }) {
                 </span>
                 <span className="mt-1 flex items-center gap-2">
                   <span className="font-display text-[14px] font-semibold tracking-[-0.015em]">
-                    {DIFFICULTY_LABEL[l.level]}
+                    {t.topic.levelNames[l.level - 1]}
                   </span>
                   {isRead && !isActive ? (
                     <span
@@ -118,7 +112,7 @@ export function TopicReader({ topic }: { topic: Topic }) {
 
         <div className="mt-7">
           <p className="text-2xs font-semibold uppercase tracking-[0.14em] text-accent-ink">
-            {LEVEL_HINT[active.level]}
+            {t.topic.levelHints[active.level - 1]}
           </p>
           <blockquote className="mt-4 flex gap-3.5">
             <Quote size={18} className="mt-1 shrink-0 text-ink-ghost" aria-hidden />
@@ -237,7 +231,10 @@ export function TopicReader({ topic }: { topic: Topic }) {
                 { k: t.topic.hotspots3d, v: String(topic.model3d.hotspots.length) },
                 {
                   k: t.topic.explorers,
-                  v: topic.explorerCount.toLocaleString(),
+                  v:
+                    explorers === null
+                      ? "…"
+                      : explorers.toLocaleString(),
                 },
               ].map((row) => (
                 <div

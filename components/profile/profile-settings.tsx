@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Check } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 import { useAuth } from "@/components/auth-provider";
 import { LOCALES, type Locale } from "@/lib/i18n/config";
@@ -32,13 +33,15 @@ export function SettingsTab() {
         <SettingRow
           title={t.profile.defaultLevel}
           description={t.profile.defaultLevelLead}
+          stacked
         >
-          <Segmented
-            options={LEVELS.map((l) => t.common.level + " " + l)}
-            index={LEVELS.indexOf(defaultLevel)}
-            onSelect={(i) => {
-              setDefaultLevel(LEVELS[i]);
-              void updatePreferences({ defaultLevel: LEVELS[i] });
+          <LevelPicker
+            value={defaultLevel}
+            names={t.topic.levelNames}
+            hints={t.topic.levelHints}
+            onSelect={(l) => {
+              setDefaultLevel(l);
+              void updatePreferences({ defaultLevel: l });
             }}
             label={t.profile.defaultLevel}
           />
@@ -124,15 +127,100 @@ function Segmented({
   );
 }
 
+function LevelPicker({
+  value,
+  names,
+  hints,
+  onSelect,
+  label,
+}: {
+  value: number;
+  names: string[];
+  hints: string[];
+  onSelect: (level: number) => void;
+  label: string;
+}) {
+  return (
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className="grid w-full gap-2.5 sm:grid-cols-2 lg:grid-cols-4"
+    >
+      {LEVELS.map((level, i) => {
+        const active = value === level;
+        return (
+          <button
+            key={level}
+            type="button"
+            role="radio"
+            aria-checked={active}
+            onClick={() => onSelect(level)}
+            className={cn(
+              "group relative flex flex-col items-start gap-1.5 rounded-xl border p-3.5 text-left transition-all duration-200",
+              active
+                ? "border-ink bg-paper shadow-card"
+                : "border-line bg-paper-alt hover:border-line-strong hover:bg-paper"
+            )}
+          >
+            <span className="flex w-full items-center justify-between gap-2">
+              <span
+                className={cn(
+                  "text-2xs font-semibold uppercase tracking-[0.12em]",
+                  active ? "text-accent-ink" : "text-ink-muted"
+                )}
+              >
+                Level {level}
+              </span>
+              <span
+                className={cn(
+                  "grid h-4 w-4 shrink-0 place-items-center rounded-full transition-colors",
+                  active
+                    ? "bg-ink text-paper"
+                    : "border border-line-strong text-transparent"
+                )}
+                aria-hidden
+              >
+                <Check size={10} />
+              </span>
+            </span>
+            <span className="font-display text-[15px] font-semibold tracking-[-0.02em] text-ink">
+              {names[i] ?? ""}
+            </span>
+            <span className="text-[11.5px] leading-snug text-ink-muted">
+              {hints[i] ?? ""}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 function SettingRow({
   title,
   description,
   children,
+  stacked = false,
 }: {
   title: string;
   description: string;
   children: React.ReactNode;
+  stacked?: boolean;
 }) {
+  if (stacked) {
+    return (
+      <div className="rounded-2xl border border-line bg-paper p-5">
+        <div className="max-w-[46ch]">
+          <p className="text-[14px] font-medium">{title}</p>
+          <p className="mt-1 text-[12.5px] leading-relaxed text-ink-muted">
+            {description}
+          </p>
+        </div>
+        <div className="mt-4">{children}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-line bg-paper p-5 sm:flex-row sm:items-center sm:justify-between">
       <div className="max-w-[46ch]">

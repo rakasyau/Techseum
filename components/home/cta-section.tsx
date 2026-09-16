@@ -2,8 +2,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal, Sparkle } from "@/components/motion-primitives";
+import { useLanguage, interpolate } from "@/components/language-provider";
+import { TOPICS } from "@/lib/data/topics";
 
 export function CtaSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="mx-auto max-w-[1320px] px-5 pb-20 lg:px-8 lg:pb-28">
       <Reveal className="relative overflow-hidden rounded-3xl bg-ink px-6 py-14 text-paper lg:px-16 lg:py-20">
@@ -33,11 +37,10 @@ export function CtaSection() {
 
         <div className="relative max-w-[62ch]">
           <h2 className="font-display text-[clamp(1.9rem,5vw,3.1rem)] font-bold leading-[1.04] tracking-[-0.04em] text-balance">
-            What do you want to understand today?
+            {t.home.ctaTitle}
           </h2>
           <p className="mt-5 max-w-[50ch] text-[15px] leading-relaxed text-paper/65">
-            Twelve exhibits, four levels each, and a lab bench for every idea
-            that is easier to feel than to read.
+            {interpolate(t.home.ctaLead, { count: String(TOPICS.length) })}
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button
@@ -46,7 +49,7 @@ export function CtaSection() {
               className="bg-paper text-ink hover:bg-paper-alt"
             >
               <Link href="/explore">
-                Start exploring
+                {t.common.startExploring}
                 <ArrowRight size={17} />
               </Link>
             </Button>
@@ -56,7 +59,7 @@ export function CtaSection() {
               variant="outline"
               className="border-paper/25 bg-transparent text-paper hover:border-paper hover:bg-paper/10"
             >
-              <Link href="/lab">Try a lab bench</Link>
+              <Link href="/lab">{t.home.tryLab}</Link>
             </Button>
           </div>
         </div>

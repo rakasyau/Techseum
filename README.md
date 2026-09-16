@@ -26,7 +26,7 @@ Every exhibit follows the same four moves:
 
 ## What you can do
 
-- **Explore twelve exhibits** across five wings of technology.
+- **Explore the exhibits** across five wings of technology.
 - **Read at four depths** — Simple, Beginner, Technical and Deep Dive. One exhibit
   serves a thirteen-year-old and an engineering student without talking down to either.
 - **Drive the diagram** — a stepped 2D simulation engine with play, pause, restart,

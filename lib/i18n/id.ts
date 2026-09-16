@@ -69,7 +69,7 @@ export const id: Dict = {
       "Techseum dibangun dari satu gagasan: kamu memahami sebuah sistem saat bisa melihatnya bekerja, membongkarnya, dan mengubah satu variabel untuk melihat kenapa itu penting.",
     ctaTitle: "Apa yang ingin kamu pahami hari ini?",
     ctaLead:
-      "Dua belas materi, empat level masing-masing, dan meja lab untuk setiap gagasan yang lebih mudah dirasakan daripada dibaca.",
+      "{count} materi, empat level masing-masing, dan meja lab untuk setiap gagasan yang lebih mudah dirasakan daripada dibaca.",
     tryLab: "Coba meja lab",
     builtWith: "Dibangun dengan",
     liveActivity: "pengguna terdaftar",
@@ -138,17 +138,24 @@ export const id: Dict = {
     relatedTitle: "Lanjutkan dari sini",
     relatedLead: "Materi ini langsung melanjutkan apa yang baru kamu baca.",
     read: "Baca",
+    levelNames: ["Sederhana", "Pemula", "Teknis", "Menyelami"],
+    levelHints: [
+      "Bahasa sehari-hari, tanpa istilah teknis",
+      "Bagian-bagian dan cara mereka menyatu",
+      "Batasan-batasan rekayasa",
+      "Tempat masalah nyata berada",
+    ],
   },
   ai: {
     title: "Tanya tentang materi ini",
-    subtitle: "Jawaban berpijak pada materi ini, sesuai kedalaman pilihanmu",
+    subtitle: "Jawaban tentang materi ini, sesuai kedalaman pilihanmu",
     open: "Ajukan pertanyaan",
     placeholder: "Tanyakan lanjutannya…",
     send: "Kirim pertanyaan",
     suggestions: "Pertanyaan yang disarankan",
     thinking: "Sedang menyusun jawaban…",
     disclaimer:
-      "Jawaban dihasilkan dari isi materi ini. Bisa belum lengkap — periksa hal penting sendiri.",
+      "Jawaban disusun saat diminta dari pengetahuan umum tentang topik ini. Bisa belum lengkap — periksa hal penting sendiri.",
     limitReached: "Batas pertanyaan tercapai. Coba lagi sebentar lagi.",
     unavailable: "Asisten sedang tidak tersedia.",
   },
@@ -331,7 +338,7 @@ export const id: Dict = {
       "Akun dan sesi, XP, lencana, rentetan, tanda, papan peringkat, dan setiap diagram, simulasi serta perhitungan lab.",
     generated: "Dihasilkan saat diminta",
     generatedLead:
-      "Jawaban asisten dibuat dari isi setiap materi ketika kamu bertanya.",
+      "Jawaban asisten ditulis saat kamu bertanya, memakai pengetahuan umum tentang topik materi, tetap dalam cakupannya dan sesuai kedalaman pilihanmu.",
     notIncluded: "Belum termasuk",
     notIncludedLead:
       "Konfirmasi email dan reset kata sandi belum tersambung, dan teks level 4 belum melalui tinjauan ahli.",
@@ -422,7 +429,7 @@ export const id: Dict = {
   pages: {
     exploreTitle: "Koleksi",
     exploreLead:
-      "Dua belas materi di lima sayap. Setiap materi dibuka dengan jawaban berbahasa sederhana, lalu sedalam apa pun yang ingin kamu telusuri.",
+      "{count} materi di lima sayap. Setiap materi dibuka dengan jawaban berbahasa sederhana, lalu sedalam apa pun yang ingin kamu telusuri.",
     challengeTitle: "Tantangan",
     challengeLead:
       "Latihan singkat untuk memastikan gagasannya benar-benar masuk. Salah di sini justru berguna, karena penjelasannya yang jadi inti.",

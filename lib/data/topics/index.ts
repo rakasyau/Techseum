@@ -29,10 +29,6 @@ export function relatedTopics(topic: Topic): Topic[] {
 
 export const FEATURED_TOPICS = TOPICS.filter((t) => t.featured);
 
-export const TRENDING_TOPICS = [...TOPICS]
-  .filter((t) => t.trending)
-  .sort((a, b) => b.explorerCount - a.explorerCount);
-
 export const LEARNING_PATHS: {
   slug: string;
   title: string;

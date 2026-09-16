@@ -131,6 +131,8 @@ export interface Dict {
     relatedTitle: string;
     relatedLead: string;
     read: string;
+    levelNames: string[];
+    levelHints: string[];
   };
   ai: {
     title: string;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, Compass, Star } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { TOPICS, getTopic, relatedTopics } from "@/lib/data/topics";
 import { CATEGORY_MAP } from "@/lib/data/categories";
 import { DIFFICULTY_LABEL } from "@/lib/types";
@@ -9,8 +9,8 @@ import { SimulationStudio } from "@/components/topic-detail/simulation-studio";
 import { TopicReader } from "@/components/topic-detail/topic-reader";
 import { TopicCard } from "@/components/topic-card";
 import { DifficultyDots } from "@/components/topic-card";
+import { ExplorerCount } from "@/components/explorer-count";
 import { Reveal } from "@/components/motion-primitives";
-import { formatCount } from "@/lib/utils";
 
 export function generateStaticParams() {
   return TOPICS.map((t) => ({ slug: t.slug }));
@@ -73,15 +73,7 @@ export default function TopicPage({ params }: { params: { slug: string } }) {
             <span className="rounded-full border border-line px-2.5 py-1 text-2xs text-ink-muted">
               {cat?.label}
             </span>
-            <span className="flex items-center gap-1 text-2xs text-ink-muted">
-              <Star size={11} className="fill-warn text-warn" aria-hidden />
-              <span className="tnum">{topic.rating}</span>
-            </span>
-            <span className="flex items-center gap-1.5 text-2xs text-ink-muted">
-              <Compass size={11} aria-hidden />
-              <span className="tnum">{formatCount(topic.explorerCount)}</span>
-              explorers
-            </span>
+            <ExplorerCount slug={topic.slug} />
           </div>
 
           <h1 className="mt-5 font-display text-[clamp(2.1rem,5.8vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.042em] text-balance">

@@ -1,10 +1,14 @@
 "use client";
 
-import { useLanguage } from "@/components/language-provider";
+import { useLanguage, interpolate } from "@/components/language-provider";
+import { TOPICS } from "@/lib/data/topics";
 
 /*
  * Shared page header. Keeps the server pages free of client code while still
  * letting the heading text come from the language dictionary.
+ *
+ * The `{count}` placeholder, where present, is filled from the catalogue so a
+ * lead paragraph never states a stale number of exhibits.
  */
 export function PageHeading({
   titleKey,
@@ -22,7 +26,7 @@ export function PageHeading({
         {pages[titleKey]}
       </h1>
       <p className="mt-4 text-[16px] leading-relaxed text-ink-muted text-pretty">
-        {pages[leadKey]}
+        {interpolate(pages[leadKey], { count: String(TOPICS.length) })}
       </p>
     </header>
   );

@@ -19,7 +19,9 @@ while accounts, XP, badges, streaks, bookmarks, the leaderboard and site
 statistics are read from MongoDB.
 
 The AI assistant is a Next.js route handler that keeps the provider key
-server-side and streams answers grounded in each exhibit's own content.
+server-side and streams answers. It is briefed on each exhibit's scope, depth
+levels, simulation steps and part names, then answers from general knowledge
+about that subject rather than reciting the exhibit text.
 Interface copy ships in English and Indonesian via a dictionary in
 `lib/i18n/`. 3D exhibits are authored procedurally in code rather than loaded
 from `.glb` files.

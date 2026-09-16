@@ -8,6 +8,7 @@ import { DIFFICULTY_LABEL } from "@/lib/types";
 import { CATEGORY_MAP } from "@/lib/data/categories";
 import { SchematicThumb } from "./schematic-thumb";
 import { cn, formatCount } from "@/lib/utils";
+import { useExplorerCount } from "@/lib/use-stats";
 
 /* The exhibit card. Thumbnail-led so the diagram does the selling; metadata
    sits in one quiet row beneath it. Hover tilts the preview toward the
@@ -26,6 +27,7 @@ export function TopicCard({
   const [bookmarked, setBookmarked] = React.useState(initialBookmarked);
   const ref = React.useRef<HTMLDivElement>(null);
   const cat = CATEGORY_MAP[topic.category];
+  const explorers = useExplorerCount(topic.slug);
 
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
@@ -126,8 +128,17 @@ export function TopicCard({
             <div className="mt-4 flex items-center justify-between border-t border-line pt-3.5">
               <span className="flex items-center gap-1.5 text-2xs text-ink-muted">
                 <Compass size={12} />
-                <span className="tnum">{formatCount(topic.explorerCount)}</span>
-                explorers
+                {explorers === null ? (
+                  <span
+                    className="inline-block h-3 w-6 animate-pulse rounded bg-paper-sink"
+                    aria-hidden
+                  />
+                ) : (
+                  <>
+                    <span className="tnum">{formatCount(explorers)}</span>
+                    explorers
+                  </>
+                )}
               </span>
               <span className="flex items-center gap-1 text-2xs font-medium text-ink-muted transition-colors group-hover:text-accent">
                 Explore
