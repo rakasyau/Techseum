@@ -1,0 +1,71 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing / coverage
+/coverage
+
+# Next.js build output
+/.next/
+/out/
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Certificate / key material
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# ---------------------------------------------------------------------------
+# Environment / secrets — NEVER commit these.
+# .env.example is intentionally allowed through so the required keys are
+# documented without exposing any value.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# ---------------------------------------------------------------------------
+# AI agent tooling. These directories contain local skill definitions,
+# caches and session state for various coding agents. They are development
+# scaffolding and must never be published.
+# ---------------------------------------------------------------------------
+/.opencode/
+/.claude/
+/.agent/
+/.agents/
+/.codex/
+/.cursor/
+/.dsh/
+/.gemini/
+/.hermes/
+/.continue/
+/.junie/
+/.windsurf/
+AGENTS.md
+CLAUDE.md
+
+# impeccable design tooling: local config, review captures, scratch scripts
+/.impeccable/
+
+# Source brief material (client-provided reference docs)
+/bahan/

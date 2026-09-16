@@ -1,0 +1,198 @@
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "General Sans", var(--font-body), ui-sans-serif, system-ui,
+      sans-serif;
+  }
+}
+
+@layer base {
+  :root {
+    /* Ink */
+    --ink: 10 10 10;
+    --ink-soft: 46 46 51;
+    --ink-muted: 107 107 112;
+    --ink-faint: 150 150 158;
+    --ink-ghost: 196 196 204;
+
+    /* Ground */
+    --paper: 255 255 255;
+    --paper-alt: 247 247 248;
+    --paper-sink: 240 240 242;
+
+    /* Line */
+    --line: 236 236 236;
+    --line-strong: 214 214 220;
+    --line-dash: 180 180 190;
+
+    /* Accent — the one technology hue */
+    --accent: 79 70 229;
+    --accent-deep: 55 48 163;
+    --accent-soft: 238 240 255;
+    --accent-ink: 67 56 202;
+
+    /* Signal */
+    --signal: 6 182 212;
+    --signal-soft: 230 249 253;
+    --success: 22 163 74;
+    --success-soft: 232 248 238;
+    --danger: 220 38 38;
+    --danger-soft: 253 235 235;
+    --warn: 217 119 6;
+    --warn-soft: 254 246 230;
+
+    --radius: 24px;
+    --radius-sm: 14px;
+    --radius-xs: 9px;
+
+    --shadow-card: 0 1px 2px rgba(10, 10, 10, 0.04), 0 8px 24px -12px rgba(10, 10, 10, 0.14);
+    --shadow-lift: 0 2px 4px rgba(10, 10, 10, 0.05), 0 22px 44px -20px rgba(10, 10, 10, 0.22);
+    --shadow-pop: 0 1px 2px rgba(10, 10, 10, 0.05), 0 34px 60px -26px rgba(10, 10, 10, 0.3);
+  }
+
+  .dark {
+    --ink: 245 245 247;
+    --ink-soft: 214 214 220;
+    --ink-muted: 152 152 162;
+    --ink-faint: 118 118 128;
+    --ink-ghost: 74 74 82;
+
+    --paper: 10 10 11;
+    --paper-alt: 18 18 21;
+    --paper-sink: 25 25 29;
+
+    --line: 38 38 44;
+    --line-strong: 54 54 62;
+    --line-dash: 70 70 80;
+
+    --accent: 129 122 255;
+    --accent-deep: 165 160 255;
+    --accent-soft: 28 27 56;
+    --accent-ink: 180 176 255;
+
+    --signal: 34 211 238;
+    --signal-soft: 12 44 52;
+    --success: 52 199 123;
+    --success-soft: 14 42 27;
+    --danger: 248 113 113;
+    --danger-soft: 52 22 22;
+    --warn: 251 191 36;
+    --warn-soft: 52 40 12;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 22px 44px -20px rgba(0, 0, 0, 0.7);
+    --shadow-pop: 0 1px 2px rgba(0, 0, 0, 0.5), 0 34px 60px -26px rgba(0, 0, 0, 0.8);
+  }
+
+  * {
+    border-color: rgb(var(--line));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: rgb(var(--paper));
+    color: rgb(var(--ink));
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.9);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--paper-alt));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--ink-ghost));
+    border: 3px solid rgb(var(--paper-alt));
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--ink-faint));
+  }
+
+  input[type="range"] {
+    accent-color: rgb(var(--accent));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.035em;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+  }
+}

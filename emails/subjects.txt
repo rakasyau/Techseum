@@ -1,0 +1,5 @@
+Welcome email subject:   You're on the list — welcome to Techseum
+Weekly digest subject:   New exhibits to explore this week
+
+Plain-text versions are returned by the same functions in
+lib/email-templates.ts, for the `text` field of the Resend API.
