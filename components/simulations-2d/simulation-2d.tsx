@@ -155,14 +155,15 @@ export function Simulation2D({
 
       {/* stage */}
       <div className="relative">
-        <svg
-          viewBox={config.viewBox.join(" ")}
-          className="block w-full"
-          role="img"
-          aria-label={`${title} ${t.topic.mode2d}, ${t.topic.step} ${
-            step + 1
-          } ${t.topic.of} ${steps.length}: ${current?.title}`}
-        >
+        <div className="no-scrollbar overflow-x-auto">
+          <svg
+            viewBox={config.viewBox.join(" ")}
+            className="block w-full min-w-[560px]"
+            role="img"
+            aria-label={`${title} ${t.topic.mode2d}, ${t.topic.step} ${
+              step + 1
+            } ${t.topic.of} ${steps.length}: ${current?.title}`}
+          >
           <defs>
             <marker
               id="sim-arrow"
@@ -372,6 +373,7 @@ export function Simulation2D({
             );
           })}
         </svg>
+        </div>
 
         {/* step readout */}
         <div className="pointer-events-none absolute left-4 top-4 flex flex-col gap-1.5">

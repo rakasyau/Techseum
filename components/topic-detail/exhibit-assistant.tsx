@@ -144,7 +144,7 @@ export function ExhibitAssistant({
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? undefined : { opacity: 0, y: 8 }}
             transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-4 overflow-hidden rounded-2xl border border-line bg-paper shadow-card"
+            className="mt-4 w-full min-w-0 overflow-hidden rounded-2xl border border-line bg-paper shadow-card"
           >
             <div className="flex items-center gap-2.5 border-b border-line bg-paper-alt px-4 py-3">
               <span className="grid h-7 w-7 place-items-center rounded-full bg-accent-soft text-accent-ink">
@@ -170,7 +170,7 @@ export function ExhibitAssistant({
 
             <div
               ref={scroller}
-              className="max-h-[340px] space-y-3 overflow-y-auto px-4 py-4"
+              className="max-h-[min(340px,50dvh)] space-y-3 overflow-y-auto px-4 py-4"
             >
               {turns.length === 0 ? (
                 <div>

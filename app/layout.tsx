@@ -73,7 +73,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${mono.variable}`}
     >
-      <body className="min-h-screen font-sans antialiased">
+      <body className="min-h-screen overflow-x-clip font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

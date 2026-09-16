@@ -98,13 +98,24 @@ throughout the simulations and interface.
 ## Newsletter
 
 The footer signup stores the address in the database and sends a welcome email
-through Resend. The weekly digest lives in scripts/send-digest.mjs.
+through Resend. Registration sends its own account-welcome email. The weekly
+digest lives in scripts/send-digest.mjs. Every provider failure is logged with
+the exact HTTP status and message, so a rejected sender or a revoked key is
+visible instead of silent.
 
 Paste-ready email templates are in emails/:
 
-- emails/welcome.html — sent on signup
+- emails/account-welcome.html — sent when someone creates an account
+- emails/welcome.html — sent on newsletter signup
 - emails/weekly-digest.html — the weekly roundup
 - emails/subjects.txt — the matching subject lines
+
+Delivery can be verified without the UI. Both scripts read `.env.local`:
+
+- `node scripts/test-email.mjs [address]` — sends a test through every From
+  address in play and prints the exact Resend status.
+- `node scripts/test-register.mjs [baseUrl] [email]` — registers a real account
+  against a running server and reports whether the welcome email was sent.
 
 Until a sending domain is verified in Resend, only the sandbox sender
 (onboarding@resend.dev) works, and Resend will only deliver to the email

@@ -20,6 +20,21 @@ export interface ProviderResult {
   email: "sent" | "skipped" | "failed";
 }
 
+/*
+ * Every provider call funnels through here, and every failure is logged with
+ * the exact HTTP status and Resend message. The previous version returned only
+ * "failed", which made a rejected From address indistinguishable from an
+ * outage. If an email ever "does not arrive", the server log now names the
+ * cause instead of hiding it.
+ */
+function logFailure(operation: string, status: number, body: unknown): void {
+  const detail =
+    body && typeof body === "object"
+      ? JSON.stringify(body).slice(0, 500)
+      : String(body);
+  console.error(`[resend] ${operation} failed (HTTP ${status}): ${detail}`);
+}
+
 export function newsletterConfigured(): boolean {
   return serverEnv.resendApiKey !== null;
 }
@@ -73,6 +88,12 @@ export async function addToAudience(email: string): Promise<ProviderResult["audi
   const body = result.body as { message?: string; name?: string } | null;
   const message = (body?.message ?? "").toLowerCase();
 
+  // A restricted ("send only") key returns 401/403 here by design, so only
+  // log genuine failures to keep the log free of expected noise.
+  if (result.status !== 401 && result.status !== 403 && result.status !== 409) {
+    logFailure("audience sync", result.status, result.body);
+  }
+
   // 409 / "already exists" means the contact is already there, which is fine.
   if (result.status === 409 || message.includes("already exists")) {
     return "duplicate";
@@ -89,25 +110,37 @@ export async function addToAudience(email: string): Promise<ProviderResult["audi
   return "failed";
 }
 
-/** Sends the welcome email. */
-export async function sendWelcomeEmail(
-  email: string
+/** Shared one-off send. Logs the provider's reason when it refuses. */
+async function sendOne(
+  operation: string,
+  email: string,
+  message: { subject: string; html: string; text: string }
 ): Promise<ProviderResult["email"]> {
   if (!serverEnv.resendApiKey) return "skipped";
 
-  const { subject, html, text } = welcomeEmail();
   const result = await resend("/emails", {
     method: "POST",
     body: JSON.stringify({
       from: serverEnv.newsletterFrom,
       to: [email],
-      subject,
-      html,
-      text,
+      subject: message.subject,
+      html: message.html,
+      text: message.text,
     }),
   });
 
-  return result.ok ? "sent" : "failed";
+  if (!result.ok) {
+    logFailure(operation, result.status, result.body);
+    return "failed";
+  }
+  return "sent";
+}
+
+/** Sends the welcome email. */
+export async function sendWelcomeEmail(
+  email: string
+): Promise<ProviderResult["email"]> {
+  return sendOne("welcome email", email, welcomeEmail());
 }
 
 /**
@@ -121,21 +154,7 @@ export async function sendAccountWelcomeEmail(
   email: string,
   displayName: string
 ): Promise<ProviderResult["email"]> {
-  if (!serverEnv.resendApiKey) return "skipped";
-
-  const { subject, html, text } = accountWelcomeEmail(displayName);
-  const result = await resend("/emails", {
-    method: "POST",
-    body: JSON.stringify({
-      from: serverEnv.newsletterFrom,
-      to: [email],
-      subject,
-      html,
-      text,
-    }),
-  });
-
-  return result.ok ? "sent" : "failed";
+  return sendOne("account welcome email", email, accountWelcomeEmail(displayName));
 }
 
 /** Sends an arbitrary template to a list of recipients. Used for the digest. */
@@ -158,7 +177,10 @@ export async function sendToRecipients(
       }),
     });
     if (result.ok) sent += 1;
-    else failed += 1;
+    else {
+      failed += 1;
+      logFailure("digest email", result.status, result.body);
+    }
   }
 
   return { sent, failed };

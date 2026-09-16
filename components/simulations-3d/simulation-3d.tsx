@@ -77,7 +77,7 @@ export function Simulation3D({
 
       <div className="relative h-[380px] bg-paper-sink sm:h-[440px]">
         <Canvas
-          dpr={[1, 2]}
+          dpr={[1, 1.5]}
           camera={{ position: [3.2, 2.4, 4.2], fov: 42 }}
           gl={{ antialias: true, alpha: true }}
         >
@@ -128,8 +128,8 @@ export function Simulation3D({
                 className={cn(
                   "group relative flex items-center justify-center rounded-full border shadow-card backdrop-blur-sm transition-all duration-200",
                   active === h.id
-                    ? "h-7 w-7 border-accent bg-accent text-white"
-                    : "h-6 w-6 border-line bg-paper/90 text-ink-soft hover:border-accent hover:bg-accent-soft hover:text-accent-ink"
+                    ? "h-9 w-9 border-accent bg-accent text-white sm:h-7 sm:w-7"
+                    : "h-8 w-8 border-line bg-paper/90 text-ink-soft hover:border-accent hover:bg-accent-soft hover:text-accent-ink sm:h-6 sm:w-6"
                 )}
               >
                 <span className="tnum text-[10px] font-semibold leading-none">

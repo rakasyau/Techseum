@@ -23,9 +23,11 @@ export function Logo({
           <circle cx="15" cy="15" r="2.5" fill="rgb(var(--paper))" />
         </svg>
       </span>
-      <span className="font-display text-[19px] font-bold tracking-[-0.045em] text-ink">
-        Techseum
-      </span>
+      {markOnly ? null : (
+        <span className="font-display text-[19px] font-bold tracking-[-0.045em] text-ink">
+          Techseum
+        </span>
+      )}
     </span>
   );
 }

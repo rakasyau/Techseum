@@ -55,9 +55,11 @@ export function AccountMenu() {
         </Link>
         <Link
           href="/register"
-          className="inline-flex h-10 items-center rounded-full bg-ink px-4 text-[13px] font-medium text-paper transition-colors hover:bg-ink-soft"
+          aria-label={t.nav.register}
+          className="inline-flex h-10 items-center rounded-full bg-ink px-3 text-[13px] font-medium text-paper transition-colors hover:bg-ink-soft sm:px-4"
         >
-          {t.nav.register}
+          <span className="hidden sm:inline">{t.nav.register}</span>
+          <UserIcon size={16} className="sm:hidden" aria-hidden />
         </Link>
       </div>
     );

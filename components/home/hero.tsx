@@ -171,36 +171,29 @@ export function Hero() {
 
           <motion.div
             style={reduce ? undefined : { y: yC }}
-            className="absolute right-[4%] top-[3%] w-[58%] max-w-[300px]"
+            className="absolute right-[4%] top-[3%] w-[52%] max-w-[300px] sm:w-[58%]"
           >
-            <div
-              className="overflow-hidden rounded-2xl border border-line bg-paper shadow-lift"
-              style={{ transform: "rotate(7deg)" }}
-            >
+            <div className="overflow-hidden rounded-2xl border border-line bg-paper shadow-lift sm:rotate-[7deg]">
               <SchematicThumb kind="router" className="aspect-[16/11] w-full" />
             </div>
           </motion.div>
 
           <motion.div
             style={reduce ? undefined : { y: yB }}
-            className="absolute bottom-[6%] left-[2%] w-[56%] max-w-[290px]"
+            className="absolute bottom-[6%] left-[2%] w-[50%] max-w-[290px] sm:w-[56%]"
           >
-            <div
-              className="overflow-hidden rounded-2xl border border-line bg-paper shadow-lift"
-              style={{ transform: "rotate(-8deg)" }}
-            >
+            <div className="overflow-hidden rounded-2xl border border-line bg-paper shadow-lift sm:rotate-[-8deg]">
               <SchematicThumb kind="ssd" className="aspect-[16/11] w-full" />
             </div>
           </motion.div>
 
           <motion.div
             style={reduce ? undefined : { y: yA }}
-            className="absolute bottom-[16%] right-[8%] w-[62%] max-w-[330px]"
+            className="absolute bottom-[16%] right-[8%] w-[58%] max-w-[330px] sm:w-[62%]"
           >
             <Link
               href="/explore/cpu"
-              className="block overflow-hidden rounded-2xl border border-line bg-paper shadow-pop transition-transform duration-300 hover:-translate-y-1"
-              style={{ transform: "rotate(-2.5deg)" }}
+              className="block overflow-hidden rounded-2xl border border-line bg-paper shadow-pop transition-transform duration-300 hover:-translate-y-1 sm:rotate-[-2.5deg]"
             >
               <SchematicThumb kind="cpu" className="aspect-[16/11] w-full" />
               <div className="flex items-center justify-between border-t border-line px-4 py-3">

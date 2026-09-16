@@ -74,7 +74,7 @@ export function SearchCommand({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
-          className="fixed inset-0 z-[70] flex items-start justify-center bg-ink/25 px-4 pt-[12vh] backdrop-blur-sm"
+          className="fixed inset-0 z-[70] flex items-start justify-center bg-ink/25 px-4 pt-[max(12dvh,1rem)] backdrop-blur-sm"
           onClick={() => onOpenChange(false)}
         >
           <motion.div
@@ -102,7 +102,7 @@ export function SearchCommand({
               </kbd>
             </div>
 
-            <div className="max-h-[52vh] overflow-y-auto p-2">
+            <div className="max-h-[min(52vh,52dvh)] overflow-y-auto p-2">
               {results.length === 0 ? (
                 <div className="px-4 py-10 text-center">
                   <p className="text-sm font-medium">

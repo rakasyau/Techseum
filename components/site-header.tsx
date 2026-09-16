@@ -68,9 +68,10 @@ export function SiteHeader() {
             : "border-b border-transparent bg-paper"
         )}
       >
-        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-3 px-5 lg:h-[72px] lg:px-8">
+        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-2 px-3 sm:gap-3 sm:px-5 lg:h-[72px] lg:px-8">
           <Link href="/" className="shrink-0 rounded-lg" aria-label="Techseum">
-            <Logo />
+            <Logo markOnly className="sm:hidden" />
+            <Logo className="hidden sm:inline-flex" />
           </Link>
 
           <nav className="ml-2 hidden items-center gap-0.5 xl:flex">
@@ -100,7 +101,7 @@ export function SiteHeader() {
             })}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
@@ -146,7 +147,7 @@ export function SiteHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-line bg-paper px-5 pb-10 pt-6 xl:hidden"
+            className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-line bg-paper px-5 pb-10 pt-6 lg:top-[72px] xl:hidden"
           >
             <nav className="flex flex-col">
               {NAV.map((item, i) => (

@@ -195,9 +195,10 @@ export function NetworkBench() {
               backgroundSize: "26px 26px",
             }}
           />
+          <div className="no-scrollbar relative overflow-x-auto">
           <svg
             viewBox="0 0 640 320"
-            className="relative block w-full"
+            className="relative block w-full min-w-[560px]"
             role="img"
             aria-label="Network topology with the routed packet path"
           >
@@ -308,6 +309,7 @@ export function NetworkBench() {
               );
             })}
           </svg>
+          </div>
         </div>
       </div>
 

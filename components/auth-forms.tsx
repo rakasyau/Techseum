@@ -244,7 +244,7 @@ function AuthShell({
             "radial-gradient(ellipse 60% 50% at 70% 15%, rgb(var(--accent-soft)), transparent 70%)",
         }}
       />
-      <div className="relative mx-auto grid min-h-[calc(100vh-72px)] max-w-[1320px] items-center gap-12 px-5 py-16 lg:grid-cols-2 lg:px-8">
+      <div className="relative mx-auto grid min-h-[calc(100dvh-4rem)] max-w-[1320px] items-center gap-12 px-5 py-16 lg:min-h-[calc(100dvh-4.5rem)] lg:grid-cols-2 lg:px-8">
         <div className="hidden lg:block">
           <Logo />
           <h2 className="mt-8 max-w-[18ch] font-display text-[clamp(2rem,4.6vw,3.2rem)] font-bold leading-[1.04] tracking-[-0.04em]">

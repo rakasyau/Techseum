@@ -91,14 +91,16 @@ export async function POST(request: Request) {
     // Duplicate-key race or a transient write error. Not fatal.
   }
 
+  let welcome: "sent" | "skipped" | "failed" = "skipped";
   try {
-    await sendAccountWelcomeEmail(created.email, created.displayName);
-  } catch {
+    welcome = await sendAccountWelcomeEmail(created.email, created.displayName);
+  } catch (error) {
     // Provider unreachable or rejected the address. The account still exists.
+    console.error("[register] account welcome email threw:", error);
   }
 
   return NextResponse.json(
-    { user: toPublicUser(created.toObject()) },
+    { user: toPublicUser(created.toObject()), provider: { welcome } },
     { status: 201 }
   );
 }

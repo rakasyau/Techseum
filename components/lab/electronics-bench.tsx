@@ -80,7 +80,8 @@ export function ElectronicsBench() {
               backgroundSize: "26px 26px",
             }}
           />
-          <svg viewBox="0 0 640 320" className="relative block w-full" role="img" aria-label="Battery, resistor and LED circuit with the current flow visualized">
+          <div className="no-scrollbar relative overflow-x-auto">
+          <svg viewBox="0 0 640 320" className="relative block w-full min-w-[560px]" role="img" aria-label="Battery, resistor and LED circuit with the current flow visualized">
             {/* wires */}
             <g
               fill="none"
@@ -233,6 +234,7 @@ export function ElectronicsBench() {
               closed circuit
             </text>
           </svg>
+          </div>
         </div>
       </div>
 
