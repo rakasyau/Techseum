@@ -25,7 +25,7 @@ for (const file of [".env.local", ".env"]) {
 const URI = process.env.MONGODB_URI;
 const DB = process.env.MONGODB_DB || "techseum";
 const KEY = process.env.RESEND_API_KEY;
-const FROM = process.env.NEWSLETTER_FROM || "Techseum <onboarding@resend.dev>";
+const FROM = process.env.NEWSLETTER_FROM || "Techseum <news@techseum.rakasyau.my.id>";
 
 if (!URI) throw new Error("MONGODB_URI is not set");
 if (!KEY) throw new Error("RESEND_API_KEY is not set");

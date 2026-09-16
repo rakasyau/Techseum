@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { User, toPublicUser } from "@/lib/models/user";
+import { Subscriber } from "@/lib/models/subscriber";
 import { hashPassword, startSession } from "@/lib/auth";
 import { registerSchema, firstIssue } from "@/lib/validation";
 import { validatePassword } from "@/lib/password";
+import { sendAccountWelcomeEmail } from "@/lib/resend";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -69,6 +71,32 @@ export async function POST(request: Request) {
   });
 
   await startSession(String(created._id), created.username);
+
+  /*
+   * Side effects after the account exists. Both are best-effort and never
+   * fail the registration:
+   *
+   *   - the account holder also joins the newsletter list, unless already on it;
+   *   - they receive the account welcome email.
+   *
+   * Resend is called with its own timeout and every error is swallowed, so a
+   * provider outage cannot stop someone signing up.
+   */
+  try {
+    const alreadySubscribed = await Subscriber.findOne({ email }).lean();
+    if (!alreadySubscribed) {
+      await Subscriber.create({ email, source: "account" });
+    }
+  } catch {
+    // Duplicate-key race or a transient write error. Not fatal.
+  }
+
+  try {
+    await sendAccountWelcomeEmail(created.email, created.displayName);
+  } catch {
+    // Provider unreachable or rejected the address. The account still exists.
+  }
+
   return NextResponse.json(
     { user: toPublicUser(created.toObject()) },
     { status: 201 }

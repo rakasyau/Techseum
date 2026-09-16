@@ -1,5 +1,5 @@
 import { serverEnv } from "./env";
-import { welcomeEmail } from "./email-templates";
+import { welcomeEmail, accountWelcomeEmail } from "./email-templates";
 
 /*
  * Resend integration.
@@ -96,6 +96,34 @@ export async function sendWelcomeEmail(
   if (!serverEnv.resendApiKey) return "skipped";
 
   const { subject, html, text } = welcomeEmail();
+  const result = await resend("/emails", {
+    method: "POST",
+    body: JSON.stringify({
+      from: serverEnv.newsletterFrom,
+      to: [email],
+      subject,
+      html,
+      text,
+    }),
+  });
+
+  return result.ok ? "sent" : "failed";
+}
+
+/**
+ * Sends the account-creation welcome. Distinct from the newsletter welcome:
+ * this one explains the product to someone who just signed up.
+ *
+ * Never throws. A registration must succeed even if the email provider is
+ * down, so the route treats a failure here as non-fatal.
+ */
+export async function sendAccountWelcomeEmail(
+  email: string,
+  displayName: string
+): Promise<ProviderResult["email"]> {
+  if (!serverEnv.resendApiKey) return "skipped";
+
+  const { subject, html, text } = accountWelcomeEmail(displayName);
   const result = await resend("/emails", {
     method: "POST",
     body: JSON.stringify({

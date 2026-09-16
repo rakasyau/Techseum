@@ -14,8 +14,8 @@ function required(name: string): string {
   if (!value || value.trim() === "") {
     throw new Error(
       `Missing required environment variable "${name}". ` +
-        `Set it in .env.local for local development, or in your host's ` +
-        `environment settings for deployments. See .env.example.`
+      `Set it in .env.local for local development, or in your host's ` +
+      `environment settings for deployments. See .env.example.`
     );
   }
   return value;
@@ -33,7 +33,7 @@ export const serverEnv = {
     if (secret.length < 32) {
       throw new Error(
         'AUTH_SECRET is too short. Use at least 32 characters, for example: ' +
-          'node -e "console.log(require(\'crypto\').randomBytes(48).toString(\'base64url\'))"'
+        'node -e "console.log(require(\'crypto\').randomBytes(48).toString(\'base64url\'))"'
       );
     }
     return secret;
@@ -52,7 +52,7 @@ export const serverEnv = {
   get newsletterFrom(): string {
     return (
       process.env.NEWSLETTER_FROM?.trim() ||
-      "Techseum <onboarding@resend.dev>"
+      "Techseum <news@techseum.rakasyau.my.id>"
     );
   },
   get newsletterAudienceId(): string | null {

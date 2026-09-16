@@ -6,6 +6,7 @@ directly in Resend.
 
 | File | When it is sent |
 |---|---|
+| `account-welcome.html` | When someone creates an account |
 | `welcome.html` | Immediately when someone subscribes from the site footer |
 | `weekly-digest.html` | The weekly roundup of new exhibits |
 | `subjects.txt` | The matching subject lines |

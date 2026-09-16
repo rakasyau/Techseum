@@ -1,4 +1,5 @@
-Welcome email subject:   You're on the list — welcome to Techseum
+Account welcome subject:  Your Techseum account is ready
+Newsletter welcome subject:   You're on the list — welcome to Techseum
 Weekly digest subject:   New exhibits to explore this week
 
 Plain-text versions are returned by the same functions in
